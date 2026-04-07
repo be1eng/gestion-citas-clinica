@@ -3,7 +3,7 @@ import { Link, NavLink } from 'react-router-dom';
 
 function Navbar() {
   // TODO: Reemplazar con estado real de autenticación (Context o estado global)
-  const isLoggedIn = true;
+  const isLoggedIn = false;
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
