@@ -6,52 +6,102 @@ function Navbar() {
   const isLoggedIn = false;
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+    <nav className="navbar navbar-expand-lg bg-white border-bottom" style={{ padding: '12px 0' }}>
       <div className="container">
-        <Link className="navbar-brand fw-bold" to="/" style={{ color: '#0B7BEB' }}>
+        {/* Logo */}
+        <Link className="navbar-brand d-flex align-items-center" to="/">
           <img
             src="/logo-clinica.png"
             alt="Grupo 6 Clínica"
-            width="120"
-            className="d-inline-block align-top me-2"
+            height="40"
+            className="d-inline-block"
           />
         </Link>
+
+        {/* Toggle mobile */}
         <button
-          className="navbar-toggler"
+          className="navbar-toggler border-0"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
         >
           <span className="navbar-toggler-icon"></span>
         </button>
+
         <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav ms-auto">
+          {/* Links centrales */}
+          <ul className="navbar-nav mx-auto gap-1">
             <li className="nav-item">
-              <NavLink className="nav-link" to="/" style={{ color: '#0B7BEB' }}>
-                INICIO
+              <NavLink
+                className={({ isActive }) =>
+                  `nav-link px-3 ${isActive ? 'active fw-semibold' : ''}`
+                }
+                to="/"
+                end
+              >
+                Inicio
               </NavLink>
             </li>
+            <li className="nav-item">
+              <NavLink
+                className={({ isActive }) =>
+                  `nav-link px-3 ${isActive ? 'active fw-semibold' : ''}`
+                }
+                to="/especialidades"
+              >
+                Doctores
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink
+                className={({ isActive }) =>
+                  `nav-link px-3 ${isActive ? 'active fw-semibold' : ''}`
+                }
+                to="/sacar-cita"
+              >
+                Servicios
+              </NavLink>
+            </li>
+          </ul>
+
+          {/* Botones de autenticación */}
+          <div className="d-flex align-items-center gap-3 mt-3 mt-lg-0">
             {isLoggedIn ? (
               <>
-                <li className="nav-item">
-                  <NavLink className="nav-link" to="/mis-citas" style={{ color: '#0B7BEB' }}>
-                    MIS CITAS
-                  </NavLink>
-                </li>
-                <li className="nav-item">
-                  <NavLink className="nav-link" to="/sacar-cita" style={{ color: '#0B7BEB' }}>
-                    SACAR CITA
-                  </NavLink>
-                </li>
+                <NavLink
+                  className={({ isActive }) =>
+                    `nav-link ${isActive ? 'active fw-semibold' : ''}`
+                  }
+                  to="/mis-citas"
+                >
+                  Mis Citas
+                </NavLink>
+                <Link
+                  className="btn btn-primary rounded-pill px-4"
+                  to="/sacar-cita"
+                  style={{ backgroundColor: '#2563EB', borderColor: '#2563EB' }}
+                >
+                  Sacar Cita
+                </Link>
               </>
             ) : (
-              <li className="nav-item">
-                <NavLink className="nav-link" to="/login" style={{ color: '#0B7BEB' }}>
-                  INICIAR SESIÓN
-                </NavLink>
-              </li>
+              <>
+                <Link className="nav-link" to="/login">
+                  Iniciar Sesion
+                </Link>
+                <Link
+                  className="btn btn-primary rounded-pill px-4"
+                  to="/registro"
+                  style={{ backgroundColor: '#2563EB', borderColor: '#2563EB' }}
+                >
+                  Registrarse
+                </Link>
+              </>
             )}
-          </ul>
+          </div>
         </div>
       </div>
     </nav>

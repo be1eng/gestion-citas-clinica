@@ -1,1 +1,20 @@
 /* Estilos globales de la aplicación */
+
+/* Navbar - link activo */
+.navbar .nav-link.active {
+  color: #2563EB !important;
+}
+
+.navbar .nav-link {
+  color: #374151;
+  transition: color 0.2s;
+}
+
+.navbar .nav-link:hover {
+  color: #2563EB;
+}
+
+/* Footer - links hover */
+.footer-link:hover {
+  color: #2563EB !important;
+}
