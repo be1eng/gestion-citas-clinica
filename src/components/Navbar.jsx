@@ -6,14 +6,14 @@ function Navbar() {
   const isLoggedIn = false;
 
   return (
-    <nav className="navbar navbar-expand-lg bg-white border-bottom" style={{ padding: '12px 0' }}>
+    <nav className="navbar navbar-expand-lg bg-white border-bottom">
       <div className="container">
         {/* Logo */}
         <Link className="navbar-brand d-flex align-items-center" to="/">
           <img
             src="/logo-clinica.png"
             alt="Grupo 6 Clínica"
-            height="40"
+            height="80"
             className="d-inline-block"
           />
         </Link>

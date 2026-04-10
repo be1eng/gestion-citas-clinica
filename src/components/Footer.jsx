@@ -11,7 +11,7 @@ function Footer() {
               <img
                 src="/logo-clinica.png"
                 alt="Grupo 6 Clínica"
-                height="36"
+                height="80"
                 className="d-inline-block"
               />
             </div>
