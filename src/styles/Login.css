@@ -1,0 +1,119 @@
+.login-container {
+  display: flex;
+  height: 100vh;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.login-left {
+  flex: 1;
+  background: #eef1f5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.left-content {
+  max-width: 400px;
+}
+
+.logo {
+  font-size: 40px;
+  margin-bottom: 20px;
+}
+
+.left-content h2 {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.left-content p {
+  color: #666;
+  font-size: 14px;
+}
+
+.login-right {
+  flex: 1;
+  background: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-box {
+  width: 360px;
+}
+
+.login-box h2 {
+  font-weight: bold;
+}
+
+.login-box p {
+  color: #666;
+  font-size: 14px;
+}
+
+.social-buttons {
+  display: flex;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.social-buttons button {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  background: #f1f1f1;
+  cursor: pointer;
+}
+
+.divider {
+  text-align: center;
+  font-size: 12px;
+  color: #aaa;
+  margin: 15px 0;
+}
+
+.input-group {
+  margin-bottom: 15px;
+}
+
+.input-group label {
+  font-size: 13px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.options {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  margin-bottom: 15px;
+}
+
+.forgot {
+  color: #3b82f6;
+  cursor: pointer;
+}
+
+.login-btn {
+  width: 100%;
+  padding: 12px;
+  border-radius: 25px;
+  border: none;
+  background: linear-gradient(to right, #2b6cb0, #3b82f6);
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.register {
+  text-align: center;
+  margin-top: 15px;
+}
