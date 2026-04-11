@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/Login.css';
-import logo from '../assets/logo.svg';
+import logo from '../assets/logo.png';
 
 function Login() {
   const [form, setForm] = useState({
