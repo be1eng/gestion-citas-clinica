@@ -17,9 +17,10 @@
   max-width: 400px;
 }
 
-.logo {
-  font-size: 40px;
+.logo-img {
+  width: 80px;
   margin-bottom: 20px;
+  object-fit: contain;
 }
 
 .left-content h2 {
@@ -66,6 +67,7 @@
   border: none;
   background: #f1f1f1;
   cursor: pointer;
+  font-weight: 500;
 }
 
 .divider {
@@ -75,12 +77,19 @@
   margin: 15px 0;
 }
 
+.divider span {
+  background: #fff;
+  padding: 0 10px;
+}
+
 .input-group {
   margin-bottom: 15px;
 }
 
 .input-group label {
   font-size: 13px;
+  display: block;
+  margin-bottom: 5px;
 }
 
 .input-group input {
@@ -88,6 +97,7 @@
   padding: 10px;
   border-radius: 8px;
   border: 1px solid #ddd;
+  outline: none;
 }
 
 .options {
@@ -111,9 +121,21 @@
   color: white;
   font-weight: bold;
   cursor: pointer;
+  transition: 0.3s;
+}
+
+.login-btn:hover {
+  opacity: 0.9;
 }
 
 .register {
   text-align: center;
   margin-top: 15px;
+  font-size: 14px;
+}
+
+.register a {
+  color: #3b82f6;
+  font-weight: bold;
+  text-decoration: none;
 }

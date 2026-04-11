@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/Login.css';
+import logo from '../styles/logo.svg'; 
 
 function Login() {
   const [form, setForm] = useState({
@@ -26,7 +27,9 @@ function Login() {
 
       <div className="login-left">
         <div className="left-content">
-          <div className="logo">🏥</div>
+
+          <img src={logo} alt="logo" className="logo-img" />
+
           <h2>Experience healthcare, redefined.</h2>
           <p>
             Enter a space designed for clarity and professional excellence.
