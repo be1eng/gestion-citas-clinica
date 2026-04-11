@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import "../styles/Register.css";
+import "../styles/Registro.css";
 import bg from "../assets/clinic.jpg";
 
 function Register() {
