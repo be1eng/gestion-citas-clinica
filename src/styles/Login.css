@@ -11,16 +11,17 @@
   justify-content: center;
   align-items: center;
   text-align: center;
+  position: relative;
 }
 
 .left-content {
   max-width: 400px;
 }
 
-.logo-img {
+.logo-main {
   width: 80px;
-  margin-bottom: 20px;
-  object-fit: contain;
+  margin: 20px auto;
+  display: block;
 }
 
 .left-content h2 {
@@ -47,38 +48,12 @@
 
 .login-box h2 {
   font-weight: bold;
+  margin-bottom: 5px;
 }
 
 .login-box p {
   color: #666;
   font-size: 14px;
-}
-
-.social-buttons {
-  display: flex;
-  gap: 10px;
-  margin: 20px 0;
-}
-
-.social-buttons button {
-  flex: 1;
-  padding: 10px;
-  border-radius: 8px;
-  border: none;
-  background: #f1f1f1;
-  cursor: pointer;
-}
-
-.divider {
-  text-align: center;
-  font-size: 12px;
-  color: #aaa;
-  margin: 15px 0;
-}
-
-.divider span {
-  background: #fff;
-  padding: 0 10px;
 }
 
 .input-group {
@@ -96,18 +71,22 @@
   padding: 10px;
   border-radius: 8px;
   border: 1px solid #ddd;
+  outline: none;
+  transition: 0.3s;
 }
 
-.options {
-  display: flex;
-  justify-content: space-between;
+.input-group input:focus {
+  border-color: #3b82f6;
+}
+
+.error-input {
+  border: 2px solid red !important;
+}
+
+.error {
+  color: red;
   font-size: 12px;
-  margin-bottom: 15px;
-}
-
-.forgot {
-  color: #3b82f6;
-  cursor: pointer;
+  margin-top: 5px;
 }
 
 .login-btn {
@@ -129,4 +108,11 @@
 .register {
   text-align: center;
   margin-top: 15px;
+  font-size: 14px;
+}
+
+.register a {
+  color: #3b82f6;
+  font-weight: bold;
+  text-decoration: none;
 }

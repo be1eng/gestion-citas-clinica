@@ -9,17 +9,56 @@ function Login() {
     password: ''
   });
 
+  const [errors, setErrors] = useState({});
+
+  const validate = (name, value) => {
+    let error = "";
+
+    if (!value) {
+      error = "Este campo es obligatorio";
+    } else {
+      if (name === "usuario") {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(value)) {
+          error = "Ingrese un correo válido";
+        }
+      }
+
+      if (name === "password") {
+        if (value.length < 6) {
+          error = "Mínimo 6 caracteres";
+        }
+      }
+    }
+
+    setErrors(prev => ({
+      ...prev,
+      [name]: error
+    }));
+  };
+
   const handleChange = (e) => {
+    const { name, value } = e.target;
+
     setForm({
       ...form,
-      [e.target.name]: e.target.value
+      [name]: value
     });
+
+    validate(name, value);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Datos login:", form);
-    alert("Iniciando sesión...");
+
+    validate("usuario", form.usuario);
+    validate("password", form.password);
+
+    if (errors.usuario || errors.password || !form.usuario || !form.password) {
+      return;
+    }
+
+    alert("Login correcto");
   };
 
   return (
@@ -28,7 +67,7 @@ function Login() {
       <div className="login-left">
         <div className="left-content">
 
-          <img src={logo} alt="logo" className="logo-img" />
+          <img src={logo} alt="logo" className="logo-main" />
 
           <h2>Experience healthcare, redefined.</h2>
           <p>
@@ -44,27 +83,18 @@ function Login() {
           <h2>Welcome Back</h2>
           <p>Please enter your details to access your portal.</p>
 
-          <div className="social-buttons">
-            <button>Google</button>
-            <button>Facebook</button>
-          </div>
-
-          <div className="divider">
-            <span>OR CONTINUE WITH EMAIL</span>
-          </div>
-
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} noValidate>
 
             <div className="input-group">
               <label>Email Address</label>
               <input
                 type="email"
                 name="usuario"
-                placeholder="dr.smith@sanctuary.com"
                 value={form.usuario}
                 onChange={handleChange}
-                required
+                className={errors.usuario ? "error-input" : ""}
               />
+              {errors.usuario && <p className="error">{errors.usuario}</p>}
             </div>
 
             <div className="input-group">
@@ -72,18 +102,11 @@ function Login() {
               <input
                 type="password"
                 name="password"
-                placeholder="********"
                 value={form.password}
                 onChange={handleChange}
-                required
+                className={errors.password ? "error-input" : ""}
               />
-            </div>
-
-            <div className="options">
-              <label>
-                <input type="checkbox" /> Remember me
-              </label>
-              <span className="forgot">Forgot Password?</span>
+              {errors.password && <p className="error">{errors.password}</p>}
             </div>
 
             <button type="submit" className="login-btn">
