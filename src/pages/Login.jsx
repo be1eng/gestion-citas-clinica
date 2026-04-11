@@ -65,6 +65,10 @@ function Login() {
     <div className="login-container">
 
       <div className="login-left">
+
+        <img src={logo} alt="decor" className="floating top" />
+        <img src={logo} alt="decor" className="floating bottom" />
+
         <div className="left-content">
 
           <img src={logo} alt="logo" className="logo-main" />
@@ -74,6 +78,7 @@ function Login() {
             Enter a space designed for clarity and professional excellence.
             Your health journey deserves a sanctuary.
           </p>
+
         </div>
       </div>
 
@@ -83,6 +88,15 @@ function Login() {
           <h2>Welcome Back</h2>
           <p>Please enter your details to access your portal.</p>
 
+          <div className="social-buttons">
+            <button>Google</button>
+            <button>Facebook</button>
+          </div>
+
+          <div className="divider">
+            <span>OR CONTINUE WITH EMAIL</span>
+          </div>
+
           <form onSubmit={handleSubmit} noValidate>
 
             <div className="input-group">
@@ -90,6 +104,7 @@ function Login() {
               <input
                 type="email"
                 name="usuario"
+                placeholder="dr.smith@sanctuary.com"
                 value={form.usuario}
                 onChange={handleChange}
                 className={errors.usuario ? "error-input" : ""}
@@ -102,11 +117,19 @@ function Login() {
               <input
                 type="password"
                 name="password"
+                placeholder="********"
                 value={form.password}
                 onChange={handleChange}
                 className={errors.password ? "error-input" : ""}
               />
               {errors.password && <p className="error">{errors.password}</p>}
+            </div>
+
+            <div className="options">
+              <label>
+                <input type="checkbox" /> Remember me
+              </label>
+              <span className="forgot">Forgot Password?</span>
             </div>
 
             <button type="submit" className="login-btn">
