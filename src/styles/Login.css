@@ -67,7 +67,6 @@
   border: none;
   background: #f1f1f1;
   cursor: pointer;
-  font-weight: 500;
 }
 
 .divider {
@@ -97,7 +96,6 @@
   padding: 10px;
   border-radius: 8px;
   border: 1px solid #ddd;
-  outline: none;
 }
 
 .options {
@@ -131,11 +129,4 @@
 .register {
   text-align: center;
   margin-top: 15px;
-  font-size: 14px;
-}
-
-.register a {
-  color: #3b82f6;
-  font-weight: bold;
-  text-decoration: none;
 }
