@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Stepper from "../../components/Stepper";
+import Modal from "../../components/ModalCita";
 import "../../styles/FormularioCita.css";
-
+import { useNavigate } from "react-router-dom";
 // --- SUB-COMPONENTES PARA CADA PASO ---
 
 const Step1Info = ({ formData, handleChange, summaryData }) =>
@@ -57,11 +58,10 @@ const Step1Info = ({ formData, handleChange, summaryData }) =>
 
     {/* La tarjeta lateral */}
     <section className="step-info-section card border-0 shadow-sm ">
-      <div className="text-left p-3">
-        <p style={{ fontWeight: "bold", fontSize: "20px" }}>Resumen de Cita</p>
-        <h4 className="fw-bold">
-          <i className="bi bi-calendar me-2" />
-          Appointment Summary
+      <div className="text-left m-4 d-flex flex-column gap-3">
+        <h4 className="fw-semibold" style={{ fontSize: "20px" }}>
+          <i className="bi bi-calendar me-2" style={{ color: "#004AC6" }} />
+          Resumen de Cita
         </h4>
         <div className="d-flex flex-column gap-3">
           {/*info doc */}
@@ -84,7 +84,7 @@ const Step1Info = ({ formData, handleChange, summaryData }) =>
           <div className="d-flex gap-3">
             <div class="summaryCard card flex-fill p-3">
               <h5 class="card-title" style={{ fontSize: "12px" }}>
-                DATE
+                FECHA
               </h5>
               <p
                 className="card-text"
@@ -99,7 +99,7 @@ const Step1Info = ({ formData, handleChange, summaryData }) =>
             </div>
             <div class="summaryCard card flex-fill p-3">
               <h5 class="card-title" style={{ fontSize: "12px" }}>
-                TIME
+                HORA
               </h5>
               <p
                 class="card-text"
@@ -110,33 +110,55 @@ const Step1Info = ({ formData, handleChange, summaryData }) =>
             </div>
           </div>
         </div>
-        <i
-          className="bi bi-info-circle text-primary mb-2"
-          style={{ fontSize: "2rem" }}
-        />
-        <p className="small text-muted">
-          Asegúrate de que tus datos sean correctos para procesar tu cita en la
-          clínica.
-        </p>
+        <div className="p-3 rounded-3" style={{ backgroundColor: "#F2F4F6" }}>
+          <div className="d-flex justify-content-between mb-2">
+            <span className="text-muted">Costo por consulta</span>
+            <span>
+              ${summaryData.fee}
+            </span>
+          </div>
+
+          <div className="d-flex justify-content-between mb-3">
+            <span className="text-muted">Cobertura de seguro</span>
+            <span className="text-danger">
+              -${summaryData.insuranceAmount}
+            </span>
+          </div>
+
+          <hr />
+          <div className="d-flex justify-content-between fw-bold fs-5">
+            <span>Total a pagar</span>
+            <span className="text-primary">
+              ${summaryData.total}
+            </span>
+          </div>
+        </div>
+        <div className="summaryCard rounded-3 p-4 d-flex flex-row gap-2">
+          <i className="bi bi-info-circle text-primary mb-1 me-2" />
+          <p className="small text-muted">
+            Asegúrate de que tus datos sean correctos para procesar tu cita en
+            la clínica.
+          </p>
+        </div>
       </div>
     </section>
   </div>;
 
 const Step2Review = ({ formData, handleChange }) =>
   <div className="animate__animated animate__fadeIn">
-    <h4 className="mb-4 text-primary">Review Details</h4>
+    <h4 className="step-title mb-4 text-primary">Verifique sus datos</h4>
     <ul className="list-group list-group-flush">
       <li className="list-group-item">
-        <strong>Name:</strong> {formData.fullName}
+        <strong>Nombre completo:</strong> {formData.fullName}
       </li>
       <li className="list-group-item">
-        <strong>Phone:</strong> {formData.phone}
+        <strong>Teléfono:</strong> {formData.phone}
       </li>
       <li className="list-group-item">
         <strong>Email:</strong> {formData.email}
       </li>
       <li className="list-group-item">
-        <strong>Reason:</strong> {formData.reason || "N/A"}
+        <strong>Motivo de la visita:</strong> {formData.reason || "-"}
       </li>
     </ul>
   </div>;
@@ -144,10 +166,10 @@ const Step2Review = ({ formData, handleChange }) =>
 const Step3Final = ({ formData, handleChange }) =>
   <div className="text-center py-4 animate__animated animate__pulse">
     <i className="fas fa-check-circle text-success fa-4x mb-3" />
-    <h3>¡Cita Confirmada!</h3>
+    {/* <h3>¡Cita Confirmada!</h3>
     <p className="text-muted">
       Hemos enviado un correo con los detalles a {formData.email}.
-    </p>
+    </p> */}
   </div>;
 
 function FormularioCita() {
@@ -179,17 +201,22 @@ function FormularioCita() {
     insuranceAmount: "80.00",
     total: "40.00",
     date: "2026-04-10",
-    time: "9:00 AM"
+    time: "9:00 AM",
+    place: "clinica Arequipa"
   };
 
   const [formData, setFormData] = useState(fakeUser);
   const [summaryData, setSummaryData] = useState(fakeSummaryInfo);
-  //   const handleChange = e => {
-  //     setFormData({
-  //       ...formData,
-  //       [e.target.name]: e.target.value
-  //     });
-  //   };
+  const [showSuccess, setShowSuccess] = useState(false);
+
+  useEffect(
+    () => {
+      if (currentStep === 3) {
+        setShowSuccess(true);
+      }
+    },
+    [currentStep]
+  );
 
   // --- FUNCION ÚNICA PARA EL FORMULARIO ---
   const handleChange = e => {
@@ -210,7 +237,8 @@ function FormularioCita() {
   };
 
   const prevStep = () => setCurrentStep(prev => prev - 1);
-
+  
+  const navigate = useNavigate();
   return (
     <div className="container mt-5 " style={{ maxWidth: "100%" }}>
       {/* Componente Stepper Visual */}
@@ -248,16 +276,15 @@ function FormularioCita() {
 
         {currentStep === 2 &&
           <button className="btn btn-success px-4" onClick={nextStep}>
-            Confirm Appointment
+            Confirmar Cita
           </button>}
 
         {currentStep === 3 &&
-          <button
-            className="btn btn-primary w-100"
-            onClick={() => window.location.reload()}
-          >
-            New Appointment
-          </button>}
+          <Modal
+            show={showSuccess}
+            summary={summaryData}
+            onClose={() => navigate("/")}
+          />}
       </div>
     </div>
   );
