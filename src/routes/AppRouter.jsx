@@ -13,6 +13,7 @@ import Formulario from '../pages/Formulario';
 import MisCitas from '../pages/MisCitas';
 import CitaAgendada from '../pages/CitaAgendada';
 import PerfilEspecialista from '../pages/PerfilEspecialista';
+import CalendarioEspecialista from '../pages/CalendarioEspecialista';
 
 function AppRouter() {
   return (
@@ -29,6 +30,7 @@ function AppRouter() {
         <Route path="/mis-citas" element={<MisCitas />} />
         <Route path="/cita-agendada" element={<CitaAgendada />} />
         <Route path="/especialista/:id" element={<PerfilEspecialista />} />
+        <Route path="/calendario-especialista" element={<CalendarioEspecialista />}/>
       </Route>
 
       {/* Ruta 404 - redirige al inicio */}

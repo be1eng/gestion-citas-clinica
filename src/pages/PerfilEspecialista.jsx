@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 // Datos de ejemplo del especialista
 const doctorData = {
   id: 1,
-  name: 'Dr. Julian Vance',
+  name: 'Dr. Jean Piere Sanchez',
   specialty: 'Cardiólogo Senior',
   bio: 'Dedicado a la salud cardiovascular con más de 15 años de experiencia en procedimientos de diagnóstico no invasivo y atención integral al paciente.',
   photo: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBo50wLWNcMHhg0rIfsGzuFH1p66qGbHoMHs-6ZTS_fMvnVFwS-I07-wMpCdRuygETx2FdJXkhpanC2FV33DZRIWVwtMYsEqZbEYD6CO1hDpVgzK3PR9zynEh2pXZtDHYOhC0fOdIbv9w6giYkSC8irwDqYmNMVmfIkb1Nrib_eQx8Z50TAx-rpem8SB5bGEmFL-Y8pOeQP_Taxqhg9edwPI8BlpMPBwj6eD7_JscU66zXJVV8hH-Scf9sgMSaUIAJpEp6sStWuyoc',

@@ -56,14 +56,19 @@ function Navbar() {
               </NavLink>
             </li>
             <li className="nav-item">
-              <NavLink
-                className={({ isActive }) =>
-                  `nav-link px-3 ${isActive ? 'active fw-semibold' : ''}`
-                }
-                to="/sacar-cita"
-              >
-                Servicios
-              </NavLink>
+              <a className="nav-link px-3" href="#specialties">
+                Especialidades
+              </a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link px-3" href="#about">
+                Nosotros
+              </a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link px-3" href="#how-it-works">
+                Cómo funciona
+              </a>
             </li>
           </ul>
 
@@ -90,7 +95,7 @@ function Navbar() {
             ) : (
               <>
                 <Link className="nav-link" to="/login">
-                  Iniciar Sesion
+                  Iniciar Sesión
                 </Link>
                 <Link
                   className="btn btn-primary rounded-pill px-4"

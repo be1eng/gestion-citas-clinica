@@ -38,21 +38,30 @@ function Footer() {
             </ul>
           </div>
 
-          {/* Legal */}
-          <div className="col-6 col-lg-2">
-            <h6 className="fw-semibold mb-3" style={{ color: '#111827' }}>Legal</h6>
-            <ul className="list-unstyled">
-              <li className="mb-2">
-                <a href="#" className="text-muted text-decoration-none footer-link" style={{ fontSize: '0.9rem' }}>
-                  Política de Privacidad
-                </a>
-              </li>
-              <li className="mb-2">
-                <a href="#" className="text-muted text-decoration-none footer-link" style={{ fontSize: '0.9rem' }}>
-                  Términos de Servicio
-                </a>
-              </li>
-            </ul>
+          {/* Newsletter */}
+          <div className="col-12 col-lg-3 mt-4 mt-lg-0">
+            <h6 className="fw-semibold mb-3" style={{ color: '#111827' }}>Boletín</h6>
+            <p className="text-muted mb-3" style={{ fontSize: '0.85rem' }}>
+              Mantente al día con consejos de salud y noticias de la clínica.
+            </p>
+            <form
+              className="d-flex gap-2"
+              onSubmit={(e) => e.preventDefault()}
+            >
+              <input
+                type="email"
+                className="form-control form-control-sm rounded-pill px-3"
+                placeholder="Tu correo"
+                style={{ fontSize: '0.85rem' }}
+              />
+              <button
+                type="submit"
+                className="btn btn-primary btn-sm rounded-pill px-3"
+                style={{ backgroundColor: '#2563EB', borderColor: '#2563EB', fontSize: '0.8rem' }}
+              >
+                Suscribirse
+              </button>
+            </form>
           </div>
         </div>
       </div>

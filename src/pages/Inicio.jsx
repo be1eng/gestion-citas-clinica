@@ -1,110 +1,176 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./Inicio.css";
 
 export default function Inicio() {
   return (
     <section className="inicio-page">
-      {/* SECCIÓN HERO (Lo que se ve al entrar) */}
+      {/* SECCIÓN HERO */}
       <div className="hero">
         <div className="hero-container">
           <div className="hero-left">
-            <h1>Encuentra tu <span>cita.</span></h1>
+            <h1>Encuentra tu <span>cuidado.</span></h1>
             <p className="hero-text">
-              Experimente la atención médica como debe ser.<br />
-              Conéctese con especialistas de talla mundial en un entorno digital.
+              Vive la atención médica como debe ser. Conéctate con especialistas
+              de talla mundial en un entorno digital diseñado para tu tranquilidad.
             </p>
             <div className="hero-buttons">
-              <button className="btn-primary">Buscar Doctor</button>
-              <button className="btn-secondary">Ver Especialidades</button>
+              <Link to="/especialidades" className="btn-primary">Buscar Doctor</Link>
+              <a href="#specialties" className="btn-secondary">Ver Especialidades</a>
             </div>
             <div className="stats">
-              <div className="stat-box"><h3>10k+</h3><p>Doctores</p></div>
-              <div className="stat-box"><h3>50k+</h3><p>Pacientes</p></div>
+              <div className="stat-box">
+                <h3>10k+</h3>
+                <p>Doctores Certificados</p>
+              </div>
+              <div className="stat-box">
+                <h3>50k+</h3>
+                <p>Pacientes Felices</p>
+              </div>
             </div>
           </div>
 
           <div className="hero-right">
             <img src="imagen-inicio.png" alt="doctor" />
             <div className="floating-card">
-              <h4>Premium Care</h4>
-              <p>Top 1% profesionales médicos seleccionados.</p>
+              <div className="floating-card-icon">
+                <i className="bi bi-shield-check"></i>
+              </div>
+              <div>
+                <h4>Atención Premium</h4>
+                <p>Top 1% de profesionales médicos.</p>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* SECCIÓN DE ESPECIALIDADES */}
-      <div className="specialties-section">
+      {/* ESPECIALIDADES POPULARES */}
+      <div className="specialties-section" id="specialties">
         <div className="specialties-header">
           <div>
-            <h2>Nuestras especialidades</h2>
-            <p>Ofrecemos atención especializada en una amplia gama de disciplinas médicas.</p>
+            <h2>Especialidades Populares</h2>
+            <p>Accede a atención experta en una amplia gama de disciplinas médicas.</p>
           </div>
-          <a href="#" className="view-all">View All →</a>
+          <a href="#" className="view-all">Ver todas →</a>
         </div>
 
         <div className="specialties-grid">
           <div className="specialty-card">
+            <div className="specialty-icon"><i className="bi bi-heart-pulse"></i></div>
             <h3>Cardiología</h3>
-            <p>Comprehensive heart health and vascular diagnostics.</p>
-            <span className="badge">124 Specialists</span>
+            <p>Salud cardíaca integral y diagnóstico vascular.</p>
+            <a href="#" className="specialty-link">124 Especialistas</a>
           </div>
           <div className="specialty-card">
+            <div className="specialty-icon"><i className="bi bi-activity"></i></div>
             <h3>Neurología</h3>
-            <p>Expert care for brain, spine and nervous system.</p>
-            <span className="badge">82 Specialists</span>
+            <p>Atención experta para cerebro, columna y sistema nervioso.</p>
+            <a href="#" className="specialty-link">82 Especialistas</a>
           </div>
           <div className="specialty-card">
+            <div className="specialty-icon"><i className="bi bi-emoji-smile"></i></div>
             <h3>Pediatría</h3>
-            <p>Specialized medical attention for infants and children.</p>
-            <span className="badge">215 Specialists</span>
+            <p>Atención médica especializada para bebés y niños.</p>
+            <a href="#" className="specialty-link">215 Especialistas</a>
           </div>
           <div className="specialty-card">
+            <div className="specialty-icon"><i className="bi bi-droplet"></i></div>
             <h3>Dermatología</h3>
-            <p>Advanced skin care and aesthetic treatments.</p>
-            <span className="badge">56 Specialists</span>
+            <p>Cuidado avanzado de la piel y tratamientos estéticos.</p>
+            <a href="#" className="specialty-link">56 Especialistas</a>
           </div>
         </div>
       </div>
-      <div className="section-header">
-        <h1>Simple path to wellness</h1>
-        <p>Designed to remove the friction from healthcare. Book your next appointment in minutes.</p>
+
+      {/* CAMINO SIMPLE AL BIENESTAR */}
+      <div className="how-it-works" id="how-it-works">
+        <div className="section-header">
+          <h2>Camino simple al bienestar</h2>
+          <p>Diseñado para eliminar la fricción de la atención médica. Reserva tu próxima cita en minutos.</p>
+        </div>
+
+        <div className="steps-grid">
+          <div className="step-item step-item--1">
+            <div className="step-text-wrapper">
+              <span className="step-bg-number">01</span>
+              <h3>Buscar Especialista</h3>
+              <p>Explora nuestra lista seleccionada de profesionales médicos certificados adaptados a tus necesidades.</p>
+            </div>
+            <div className="step-image-container">
+              <img src="buscarmedico.jpg" alt="Buscar" />
+            </div>
+          </div>
+
+          <div className="step-item step-item--2">
+            <div className="step-text-wrapper">
+              <span className="step-bg-number">02</span>
+              <h3>Ver Disponibilidad</h3>
+              <p>Elige la fecha y hora que se ajuste a tu agenda. Reservas en tiempo real, sin listas de espera.</p>
+            </div>
+            <div className="step-image-container">
+              <img src="citamedica.jpg" alt="Disponibilidad" />
+            </div>
+          </div>
+
+          <div className="step-item step-item--3">
+            <div className="step-text-wrapper">
+              <span className="step-bg-number">03</span>
+              <h3>Confirmar y Atender</h3>
+              <p>Recibe confirmación al instante. Asiste a tu consulta en persona o por videollamada de alta definición.</p>
+            </div>
+            <div className="step-image-container">
+              <img src="reunionmedica.jpg" alt="Consulta" />
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div className="steps-grid">
-        {/* Paso 01 */}
-        <div className="step-item">
-          <div className="step-text-wrapper">
-            <span className="step-bg-number">01</span>
-            <h3>Search Specialist</h3>
-            <p>Browse through our curated list of board-certified medical professionals tailored to your needs.</p>
-          </div>
-          <div className="step-image-container">
-            <img src="buscarmedico.jpg" alt="Search" />
-          </div>
+      {/* ESPECIALISTAS RECOMENDADOS */}
+      <div className="recommended-section">
+        <div className="section-header">
+          <h2>Especialistas Recomendados</h2>
+          <p>Profesionales mejor calificados con alta satisfacción de pacientes.</p>
         </div>
 
-        {/* Paso 02 */}
-        <div className="step-item">
-          <div className="step-text-wrapper">
-            <span className="step-bg-number">02</span>
-            <h3>Check Availability</h3>
-            <p>Select a date and time that fits your schedule. Real-time booking with no waitlists.</p>
+        <div className="recommended-grid">
+          <div className="doctor-card">
+            <img src="/female-doctor-portrait.jpg" alt="Dra. Sara Mitchell" className="doctor-photo" />
+            <span className="availability-tag">Hoy</span>
+            <h4>Dra. Sara Mitchell</h4>
+            <p className="doctor-role">Cardióloga Principal</p>
+            <p className="doctor-desc">Especialista en salud cardíaca preventiva y diagnóstico por imagen cardíaca avanzada.</p>
+            <Link to="/sacar-cita" className="btn-book">Reservar Cita</Link>
           </div>
-          <div className="step-image-container">
-            <img src="citamedica.jpg" alt="Availability" />
+
+          <div className="doctor-card">
+            <img src="/mal-physician.jpg" alt="Dr. James Wilson" className="doctor-photo" />
+            <span className="availability-tag">Hoy</span>
+            <h4>Dr. James Wilson</h4>
+            <p className="doctor-role">Neurólogo</p>
+            <p className="doctor-desc">Experto en trastornos del sueño, migrañas, salud cognitiva y cuidado de la memoria.</p>
+            <Link to="/sacar-cita" className="btn-book">Reservar Cita</Link>
+          </div>
+
+          <div className="doctor-card">
+            <img src="/dermatologist.jpg" alt="Dra. Elena Rodríguez" className="doctor-photo" />
+            <span className="availability-tag">Hoy</span>
+            <h4>Dra. Elena Rodríguez</h4>
+            <p className="doctor-role">Dermatóloga</p>
+            <p className="doctor-desc">Dedicada al bienestar de la piel y cuidado estético con más de 15 años de experiencia.</p>
+            <Link to="/sacar-cita" className="btn-book">Reservar Cita</Link>
           </div>
         </div>
+      </div>
 
-        {/* Paso 03 */}
-        <div className="step-item">
-          <div className="step-text-wrapper">
-            <span className="step-bg-number">03</span>
-            <h3>Confirm & Meet</h3>
-            <p>Get instant confirmation. Attend your consultation in-person or via high-definition video.</p>
-          </div>
-          <div className="step-image-container">
-            <img src="reunionmedica.jpg" alt="Meet" />
+      {/* BANNER CTA */}
+      <div className="cta-section">
+        <div className="cta-banner">
+          <h2>¿Listo para priorizar tu salud?</h2>
+          <p>Únete a miles de pacientes que han encontrado a sus profesionales médicos de confianza en Grupo 6 Clínica.</p>
+          <div className="cta-buttons">
+            <Link to="/registro" className="btn-cta-primary">Crear Cuenta Gratis</Link>
+            <a href="#" className="btn-cta-secondary">Contactar Soporte</a>
           </div>
         </div>
       </div>
