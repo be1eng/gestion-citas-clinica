@@ -251,7 +251,7 @@
 
 .step-bg-number {
   position: absolute;
-  top: 0;
+  top: -6px;
   left: -8px;
   font-size: 110px;
   font-weight: 900;
