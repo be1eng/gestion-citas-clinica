@@ -2,23 +2,41 @@
 import React from 'react';
 import '../styles/ModalCita.css'
 
+const parseLocalDate = (iso) => {
+  if (!iso) return null;
+  const [y, m, d] = iso.split("-").map(Number);
+  return new Date(y, m - 1, d);
+};
 
 function AppointmentSuccessModal({ show, onClose, summary, onAddToCalendar }) {
 
   if (!show) return null;
 
+  // const formatDate = (date) => {
+  //   const formatted = new Date(date).toLocaleDateString("es-ES", {
+  //     weekday: "long",
+  //     day: "numeric",
+  //     month: "long"
+  //   });
+  //   return formatted.charAt(0).toUpperCase() + formatted.slice(1);
+  // };
+
   const formatDate = (date) => {
-    const formatted = new Date(date).toLocaleDateString("es-ES", {
-      weekday: "long",
-      day: "numeric",
-      month: "long"
-    });
-    return formatted.charAt(0).toUpperCase() + formatted.slice(1);
-  };
+  const formatted = parseLocalDate(date).toLocaleDateString("es-PE", {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric"
+  });
+
+  return formatted.charAt(0).toUpperCase() + formatted.slice(1);
+};
 
   const handleAddToCalendar = () => {
+    const date = parseLocalDate(summary.date);
+
     if (onAddToCalendar) return onAddToCalendar();
-    const start = new Date(summary.date).toISOString().replace(/[-:]|\.\d{3}/g, "");
+    const start = date.toISOString().replace(/[-:]|\.\d{3}/g, "");
     const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(
       `Cita con ${summary.doctorName || "Doctor"}`
     )}&dates=${start}/${start}&location=${encodeURIComponent(summary.place || "")}&details=${encodeURIComponent(
