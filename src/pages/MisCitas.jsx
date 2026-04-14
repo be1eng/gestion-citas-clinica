@@ -51,7 +51,7 @@ function MisCitas() {
         {/* Header de bienvenida */}
         <header className="mb-5">
           <h1 className="fw-bold" style={{ fontSize: '2.25rem', color: 'var(--cs-on-surface)', letterSpacing: '-0.02em' }}>
-            Bienvenido de vuelta, Paciente.
+            Bienvenido de vuelta, Jean Piere.
           </h1>
           <p style={{ color: 'var(--cs-on-surface-variant)', fontSize: '1.1rem' }}>
             Tu salud va por buen camino. Tienes una cita programada para hoy.

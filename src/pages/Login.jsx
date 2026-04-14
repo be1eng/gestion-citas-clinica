@@ -39,7 +39,7 @@ function Login() {
     if (errors.usuario || errors.password || !form.usuario || !form.password) {
       return;
     }
-    alert("Inicio de sesión correcto");
+    window.location.href = "/especialidades";
   };
 
   return (
