@@ -12,7 +12,7 @@ const Step1Info = ({ formData, handleChange, summaryData, onNext, currentStep, t
       <p className="text-muted mb-4">
         Paso {currentStep} de {totalSteps}: Por favor proporcione los datos del paciente para el registro clínico.
       </p>
-      <div className="d-flex gap-5">
+      <div className="d-flex flex-column flex-sm-row gap-3 gap-sm-5">
         <div className="flex-fill mb-3 ">
           <label className="form-label fw-semibold">Nombre Completo</label>
           <input
@@ -94,7 +94,7 @@ const Step1Info = ({ formData, handleChange, summaryData, onNext, currentStep, t
             </div>
           </div>
 
-          <div className="d-flex gap-3">
+          <div className="summary-date-time">
             <div className="summaryCard card flex-fill p-3">
               <h5 className="card-title" style={{ fontSize: "12px" }}>
                 FECHA
@@ -370,7 +370,7 @@ function FormularioCita() {
       <Stepper steps={stepsConfig} currentStep={currentStep} />
 
       {/* Contenido Dinámico */}
-      <div className="card-body m-5">
+      <div className="card-body mx-0 mx-md-5 my-3 my-md-5 px-0 px-md-0">
         {currentStep === 1 &&
           <Step1Info
             formData={formData}
@@ -393,10 +393,10 @@ function FormularioCita() {
 
       {/* Botones de Navegación (pasos 2 y 3) */}
       {currentStep > 1 && (
-        <div className="d-flex justify-content-between mt-3">
+        <div className="d-flex flex-column flex-sm-row justify-content-sm-between gap-2 gap-sm-0 mt-3 px-2 px-md-0">
           {currentStep < 3 && (
             <button
-              className="btn btn-outline-secondary rounded-pill px-4"
+              className="btn btn-outline-secondary rounded-pill px-4 form-nav-btn"
               onClick={prevStep}
             >
               Regresar
@@ -405,7 +405,7 @@ function FormularioCita() {
 
           {currentStep === 2 && (
             <button
-              className="btn btn-primary rounded-pill px-4"
+              className="btn btn-primary rounded-pill px-4 form-nav-btn"
               onClick={nextStep}
               style={{ backgroundColor: "#2563EB", borderColor: "#2563EB" }}
             >

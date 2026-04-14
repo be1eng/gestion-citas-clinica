@@ -1,3 +1,54 @@
+/* Resumen lateral: Fecha + Hora */
+.summary-date-time {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+}
+@media (min-width: 576px) {
+  .summary-date-time {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Ajustes móviles globales del formulario */
+@media (max-width: 575.98px) {
+  .step-title {
+    font-size: 1.25rem;
+  }
+  .step-form-section,
+  .step-info-section {
+    padding: 1rem !important;
+  }
+  .summaryCard {
+    padding: 0.75rem !important;
+  }
+  .summaryImg {
+    width: 64px !important;
+    height: 64px !important;
+    object-fit: cover;
+  }
+  .form-input-flat {
+    padding: 10px 12px;
+    font-size: 14px;
+  }
+  .step-form-cta .btn {
+    width: 100%;
+  }
+  .review-card {
+    padding: 1rem !important;
+  }
+  .review-datetime {
+    gap: 0.5rem;
+  }
+  .review-doctor-img {
+    width: 56px !important;
+    height: 56px !important;
+  }
+  .form-nav-btn {
+    width: 100%;
+  }
+}
+
 /* Layout del contenedor de los pasos */
 .step-container {
   display: flex;

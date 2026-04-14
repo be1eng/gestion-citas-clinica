@@ -80,3 +80,24 @@ body {
     color: #2ecc71;
     font-weight:bold;
 }
+
+/* Responsive: móvil */
+@media (max-width: 575.98px) {
+    .steps-horizontal {
+        padding: 0 0.5rem;
+    }
+    .steps-horizontal::before {
+        top: 18px;
+    }
+    .step-icon {
+        width: 36px;
+        height: 36px;
+        font-size: 14px;
+        margin-bottom: 6px;
+    }
+    .step-description {
+        font-size: 10px;
+        max-width: 80px;
+        line-height: 1.2;
+    }
+}
