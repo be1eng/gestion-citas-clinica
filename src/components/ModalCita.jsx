@@ -3,74 +3,100 @@ import React from 'react';
 import '../styles/ModalCita.css'
 
 
-function AppointmentSuccessModal({ show, onClose, summary }) {
+function AppointmentSuccessModal({ show, onClose, summary, onAddToCalendar }) {
 
   if (!show) return null;
 
-  const formatDate = (date) =>
-    new Date(date).toLocaleDateString("es-ES", {
+  const formatDate = (date) => {
+    const formatted = new Date(date).toLocaleDateString("es-ES", {
       weekday: "long",
       day: "numeric",
       month: "long"
     });
+    return formatted.charAt(0).toUpperCase() + formatted.slice(1);
+  };
 
+  const handleAddToCalendar = () => {
+    if (onAddToCalendar) return onAddToCalendar();
+    const start = new Date(summary.date).toISOString().replace(/[-:]|\.\d{3}/g, "");
+    const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(
+      `Cita con ${summary.doctorName || "Doctor"}`
+    )}&dates=${start}/${start}&location=${encodeURIComponent(summary.place || "")}&details=${encodeURIComponent(
+      `Consulta de ${summary.speciality || ""} — ${summary.time || ""}`
+    )}`;
+    window.open(url, "_blank");
+  };
 
-    
   return (
-    <div className="modalOverlay">
-
-      <div className="successModal">
+    <div className="modalOverlay" role="dialog" aria-modal="true">
+      <div className="successModal animate__animated animate__zoomIn animate__faster">
 
         {/* Header azul */}
         <div className="modalHeader">
           <div className="checkCircle">
-            <i class="bi bi-clipboard2-check"></i>
+            <i className="bi bi-check-lg" />
           </div>
         </div>
 
         {/* Body */}
         <div className="modalBody text-center">
 
-          <h2>¡Agendado!</h2>
-          <p className="text-muted">
+          <h2 className="successTitle">¡Agendado!</h2>
+          <p className="text-muted mb-0">
             Tu cita ha sido confirmada exitosamente.
           </p>
 
           {/* info */}
           <div className="infoBox text-start">
-
-            <div className="mb-3">
-              <small className="text-primary fw-bold">FECHA</small>
-              <p className="mb-0 fw-semibold">
-                {formatDate(summary.date)} — {summary.time}
-              </p>
+            <div className="infoRow">
+              <div className="infoIcon">
+                <i className="bi bi-calendar-event" />
+              </div>
+              <div>
+                <small className="infoLabel">CUÁNDO</small>
+                <p className="mb-0 fw-semibold">
+                  {formatDate(summary.date)} — {summary.time}
+                </p>
+              </div>
             </div>
 
-            <div>
-              <small className="text-primary fw-bold">LUGAR</small>
-              <p className="mb-0 fw-semibold">
-                {summary.place}
-              </p>
+            <div className="infoRow">
+              <div className="infoIcon">
+                <i className="bi bi-geo-alt-fill" />
+              </div>
+              <div>
+                <small className="infoLabel">DÓNDE</small>
+                <p className="mb-0 fw-semibold text-capitalize">
+                  {summary.place}
+                </p>
+              </div>
             </div>
-
           </div>
 
           {/* botones */}
-          <div className="d-flex justify-content-end mt-4">
-
+          <div className="modalActions">
             <button
-              className="btn btn-primary px-4 rounded-pill"
-              onClick={onClose}
+              type="button"
+              className="btn btn-link text-decoration-none fw-semibold text-secondary"
+              onClick={handleAddToCalendar}
             >
-              Ir a inicio
+              <i className="bi bi-calendar-plus me-1" />
+              Añadir al calendario
             </button>
 
+            <button
+              type="button"
+              className="btn btn-primary rounded-pill px-4"
+              onClick={onClose}
+              style={{ backgroundColor: "#2563EB", borderColor: "#2563EB" }}
+            >
+              Ir al inicio
+            </button>
           </div>
 
         </div>
 
       </div>
-
     </div>
   );
 }

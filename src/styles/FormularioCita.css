@@ -98,6 +98,20 @@
   justify-content: center;
 }
 
+/* ---------- Paso 3: Check final ---------- */
+.success-check {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: #DCFCE7;
+  color: #16a34a;
+  font-size: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 0 8px rgba(34, 197, 94, 0.12);
+}
+
 /* ---------- Paso 2: Verifique sus datos ---------- */
 .review-container {
   max-width: 1000px;

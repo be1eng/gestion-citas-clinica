@@ -270,13 +270,15 @@ const Step2Review = ({ formData, summaryData, currentStep, totalSteps }) => {
   );
 };
 
-const Step3Final = ({ formData, handleChange }) =>
-  <div className="text-center py-4 animate__animated animate__pulse">
-    <i className="fas fa-check-circle text-success fa-4x mb-3" />
-    {/* <h3>¡Cita Confirmada!</h3>
-    <p className="text-muted">
-      Hemos enviado un correo con los detalles a {formData.email}.
-    </p> */}
+const Step3Final = ({ formData }) =>
+  <div className="text-center py-5 animate__animated animate__fadeIn">
+    <div className="success-check mx-auto mb-3">
+      <i className="bi bi-check-lg" />
+    </div>
+    <h3 className="fw-bold mb-2">¡Cita Confirmada!</h3>
+    <p className="text-muted mb-0">
+      Hemos enviado los detalles a <strong>{formData.email}</strong>.
+    </p>
   </div>;
 
 function FormularioCita() {
