@@ -1,28 +1,112 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getSpecialistById } from '../data/specialists';
 
-// Días de la semana para el calendario
-const weekDays = [
-  { day: 'Lun', date: 21, disabled: false },
-  { day: 'Mar', date: 22, disabled: false },
-  { day: 'Mié', date: 23, disabled: false },
-  { day: 'Jue', date: 24, disabled: false },
-  { day: 'Vie', date: 25, disabled: false },
-  { day: 'Sáb', date: 26, disabled: true },
-  { day: 'Dom', date: 27, disabled: true },
-];
-
-// Horarios disponibles
-const timeSlots = ['09:00 AM', '10:30 AM', '11:15 AM', '01:45 PM', '03:00 PM', '04:30 PM'];
+// ---------- Helpers de fecha ISO (YYYY-MM-DD) ----------
+const parseIso = (iso) => {
+  const [y, m, d] = iso.split('-').map(Number);
+  return new Date(y, m - 1, d);
+};
+const toIso = (date) => {
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2, '0');
+  const d = String(date.getDate()).padStart(2, '0');
+  return `${y}-${m}-${d}`;
+};
+const mondayOf = (iso) => {
+  const d = parseIso(iso);
+  const dow = d.getDay(); // 0 dom .. 6 sab
+  const diff = dow === 0 ? -6 : 1 - dow;
+  d.setDate(d.getDate() + diff);
+  return toIso(d);
+};
+const addDays = (iso, n) => {
+  const d = parseIso(iso);
+  d.setDate(d.getDate() + n);
+  return toIso(d);
+};
+const weekdayLabel = (iso) => {
+  const label = parseIso(iso).toLocaleDateString('es-ES', { weekday: 'short' });
+  return label.replace('.', '').charAt(0).toUpperCase() + label.replace('.', '').slice(1);
+};
+const dayNumber = (iso) => Number(iso.slice(8, 10));
+const monthYearLabel = (iso) => {
+  const label = parseIso(iso).toLocaleDateString('es-ES', { month: 'long', year: 'numeric' });
+  return label.charAt(0).toUpperCase() + label.slice(1);
+};
 
 function PerfilEspecialista() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [selectedDate, setSelectedDate] = useState(22);
-  const [selectedTime, setSelectedTime] = useState('11:15 AM');
 
   const doctor = getSpecialistById(id);
+
+  const availability = doctor?.availability ?? [];
+
+  const firstAvailable = useMemo(
+    () => availability.find((d) => d.timeSlots.length > 0),
+    [availability]
+  );
+
+  const [weekStart, setWeekStart] = useState(
+    firstAvailable ? mondayOf(firstAvailable.date) : toIso(new Date())
+  );
+  const [selectedDate, setSelectedDate] = useState(firstAvailable?.date ?? null);
+  const [selectedTime, setSelectedTime] = useState(firstAvailable?.timeSlots[0] ?? '');
+
+  const weekDays = useMemo(() => {
+    return Array.from({ length: 7 }, (_, i) => {
+      const iso = addDays(weekStart, i);
+      const slot = availability.find((a) => a.date === iso);
+      return {
+        iso,
+        label: weekdayLabel(iso),
+        number: dayNumber(iso),
+        disabled: !slot || slot.timeSlots.length === 0,
+        timeSlots: slot?.timeSlots ?? [],
+      };
+    });
+  }, [weekStart, availability]);
+
+  const timeSlots = useMemo(
+    () => availability.find((a) => a.date === selectedDate)?.timeSlots ?? [],
+    [availability, selectedDate]
+  );
+
+  const { canPrev, canNext } = useMemo(() => {
+    if (availability.length === 0) return { canPrev: false, canNext: false };
+    const firstDate = availability[0].date;
+    const lastDate = availability[availability.length - 1].date;
+    return {
+      canPrev: weekStart > mondayOf(firstDate),
+      canNext: weekStart < mondayOf(lastDate),
+    };
+  }, [weekStart, availability]);
+
+  const handleSelectDate = (iso) => {
+    setSelectedDate(iso);
+    const slots = availability.find((a) => a.date === iso)?.timeSlots ?? [];
+    setSelectedTime(slots[0] ?? '');
+  };
+
+  const handleWeekShift = (delta) => {
+    const newStart = addDays(weekStart, delta);
+    setWeekStart(newStart);
+    // Si la fecha seleccionada queda fuera de la nueva semana, saltar a la primera disponible dentro de ella
+    const newEnd = addDays(newStart, 6);
+    if (selectedDate < newStart || selectedDate > newEnd) {
+      const firstInWeek = availability.find(
+        (a) => a.date >= newStart && a.date <= newEnd && a.timeSlots.length > 0
+      );
+      if (firstInWeek) {
+        setSelectedDate(firstInWeek.date);
+        setSelectedTime(firstInWeek.timeSlots[0]);
+      } else {
+        setSelectedDate(null);
+        setSelectedTime('');
+      }
+    }
+  };
 
   if (!doctor) {
     return (
@@ -95,27 +179,37 @@ function PerfilEspecialista() {
               <div className="d-flex justify-content-between align-items-center mb-4">
                 <h2 className="fw-bold mb-0" style={{ fontSize: '1.5rem' }}>Agendar Cita</h2>
                 <div className="d-flex gap-2">
-                  <button className="btn btn-light rounded-circle p-2">‹</button>
-                  <button className="btn btn-light rounded-circle p-2">›</button>
+                  <button
+                    className="btn btn-light rounded-circle p-2"
+                    onClick={() => handleWeekShift(-7)}
+                    disabled={!canPrev}
+                    aria-label="Semana anterior"
+                  >‹</button>
+                  <button
+                    className="btn btn-light rounded-circle p-2"
+                    onClick={() => handleWeekShift(7)}
+                    disabled={!canNext}
+                    aria-label="Semana siguiente"
+                  >›</button>
                 </div>
               </div>
 
               {/* Selector de Fecha Semanal */}
               <div className="mb-5">
                 <p className="fw-medium mb-3" style={{ color: 'var(--cs-on-surface-variant)', fontSize: '0.875rem' }}>
-                  Selecciona una Fecha — Octubre 2024
+                  Selecciona una Fecha — {monthYearLabel(weekStart)}
                 </p>
                 <div className="row g-3">
                   {weekDays.map((item) => (
-                    <div className="col" key={item.date}>
+                    <div className="col" key={item.iso}>
                       <div
                         className={`calendar-day ${
-                          selectedDate === item.date ? 'calendar-day--selected' : ''
+                          selectedDate === item.iso ? 'calendar-day--selected' : ''
                         } ${item.disabled ? 'calendar-day--disabled' : ''}`}
-                        onClick={() => !item.disabled && setSelectedDate(item.date)}
+                        onClick={() => !item.disabled && handleSelectDate(item.iso)}
                       >
-                        <span className="calendar-day__label">{item.day}</span>
-                        <span className="calendar-day__number">{item.date}</span>
+                        <span className="calendar-day__label">{item.label}</span>
+                        <span className="calendar-day__number">{item.number}</span>
                       </div>
                     </div>
                   ))}
@@ -127,18 +221,24 @@ function PerfilEspecialista() {
                 <p className="fw-medium mb-3" style={{ color: 'var(--cs-on-surface-variant)', fontSize: '0.875rem' }}>
                   Horarios Disponibles
                 </p>
-                <div className="row g-3">
-                  {timeSlots.map((time) => (
-                    <div className="col-4 col-md-3" key={time}>
-                      <button
-                        className={`time-slot w-100 ${selectedTime === time ? 'time-slot--selected' : ''}`}
-                        onClick={() => setSelectedTime(time)}
-                      >
-                        {time}
-                      </button>
-                    </div>
-                  ))}
-                </div>
+                {timeSlots.length === 0 ? (
+                  <p className="text-muted fst-italic mb-0">
+                    No hay horarios disponibles para este día.
+                  </p>
+                ) : (
+                  <div className="row g-3">
+                    {timeSlots.map((time) => (
+                      <div className="col-4 col-md-3" key={time}>
+                        <button
+                          className={`time-slot w-100 ${selectedTime === time ? 'time-slot--selected' : ''}`}
+                          onClick={() => setSelectedTime(time)}
+                        >
+                          {time}
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
 
               {/* Botón Confirmar */}

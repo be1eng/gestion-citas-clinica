@@ -29,6 +29,16 @@ export const specialists = [
       { name: "Carlos R.", date: "Visitó en septiembre", text: "La Dra. Mitchell es increíblemente minuciosa. Me explicó cada resultado con paciencia." },
       { name: "María L.", date: "Visitó en agosto", text: "Atención de primer nivel. La reserva fue sencilla y el trato humano." },
     ],
+    availability: [
+      { date: "2026-04-20", timeSlots: ["09:00 AM", "10:30 AM", "11:15 AM", "03:00 PM"] },
+      { date: "2026-04-21", timeSlots: ["08:30 AM", "10:00 AM", "01:45 PM", "04:30 PM"] },
+      { date: "2026-04-22", timeSlots: ["09:00 AM", "11:15 AM", "02:00 PM"] },
+      { date: "2026-04-24", timeSlots: ["10:30 AM", "12:00 PM", "03:30 PM", "05:00 PM"] },
+      { date: "2026-04-27", timeSlots: ["09:00 AM", "10:30 AM", "11:15 AM"] },
+      { date: "2026-04-28", timeSlots: ["08:30 AM", "10:00 AM", "01:45 PM"] },
+      { date: "2026-04-29", timeSlots: ["09:00 AM", "02:00 PM", "04:00 PM"] },
+      { date: "2026-05-04", timeSlots: ["09:00 AM", "10:30 AM"] },
+    ],
   },
   {
     id: 2,
@@ -53,6 +63,15 @@ export const specialists = [
     ],
     feedback: [
       { name: "Ana P.", date: "Visitó en octubre", text: "Un profesional serio y muy capaz. Me dio mucha confianza antes del procedimiento." },
+    ],
+    availability: [
+      { date: "2026-04-21", timeSlots: ["08:00 AM", "09:30 AM", "02:30 PM"] },
+      { date: "2026-04-22", timeSlots: ["12:00 PM", "05:00 PM"] },
+      { date: "2026-04-23", timeSlots: ["08:00 AM", "09:30 AM", "12:00 PM", "02:30 PM", "05:00 PM"] },
+      { date: "2026-04-24", timeSlots: ["09:30 AM", "12:00 PM"] },
+      { date: "2026-04-25", timeSlots: ["09:00 AM", "10:30 AM"] },
+      { date: "2026-04-28", timeSlots: ["08:00 AM", "09:30 AM", "02:30 PM"] },
+      { date: "2026-05-05", timeSlots: ["08:00 AM", "09:30 AM"] },
     ],
   },
   {
@@ -79,6 +98,15 @@ export const specialists = [
     feedback: [
       { name: "Luis G.", date: "Visitó en septiembre", text: "Me ayudó a controlar mis migrañas después de años de no encontrar solución." },
     ],
+    availability: [
+      { date: "2026-04-20", timeSlots: ["10:00 AM", "11:00 AM", "03:00 PM", "04:00 PM"] },
+      { date: "2026-04-22", timeSlots: ["10:00 AM", "12:30 PM", "05:30 PM"] },
+      { date: "2026-04-23", timeSlots: ["11:00 AM", "12:30 PM", "04:00 PM"] },
+      { date: "2026-04-25", timeSlots: ["09:00 AM", "10:00 AM"] },
+      { date: "2026-04-27", timeSlots: ["10:00 AM", "11:00 AM", "04:00 PM"] },
+      { date: "2026-04-29", timeSlots: ["10:00 AM", "12:30 PM", "05:30 PM"] },
+      { date: "2026-05-02", timeSlots: ["09:00 AM", "10:00 AM"] },
+    ],
   },
   {
     id: 4,
@@ -104,6 +132,16 @@ export const specialists = [
     feedback: [
       { name: "Patricia V.", date: "Visitó en octubre", text: "Excelente trato y resultados visibles desde la primera sesión." },
     ],
+    availability: [
+      { date: "2026-04-20", timeSlots: ["09:30 AM", "11:00 AM", "02:00 PM"] },
+      { date: "2026-04-21", timeSlots: ["10:15 AM", "03:30 PM", "04:45 PM"] },
+      { date: "2026-04-22", timeSlots: ["09:30 AM", "11:00 AM", "02:00 PM", "04:45 PM"] },
+      { date: "2026-04-23", timeSlots: ["10:15 AM", "03:30 PM"] },
+      { date: "2026-04-24", timeSlots: ["09:30 AM", "02:00 PM", "04:45 PM"] },
+      { date: "2026-04-27", timeSlots: ["09:30 AM", "11:00 AM"] },
+      { date: "2026-04-28", timeSlots: ["10:15 AM", "03:30 PM"] },
+      { date: "2026-05-04", timeSlots: ["09:30 AM", "02:00 PM"] },
+    ],
   },
   {
     id: 5,
@@ -128,6 +166,13 @@ export const specialists = [
     ],
     feedback: [
       { name: "Rocío M.", date: "Visitó en septiembre", text: "Muy cariñoso con los niños, mi hijo pierde el miedo apenas lo ve." },
+    ],
+    availability: [
+      { date: "2026-04-23", timeSlots: ["08:30 AM", "09:15 AM", "11:30 AM"] },
+      { date: "2026-04-24", timeSlots: ["09:15 AM", "10:00 AM", "03:00 PM"] },
+      { date: "2026-04-25", timeSlots: ["10:00 AM", "11:30 AM"] },
+      { date: "2026-04-30", timeSlots: ["08:30 AM", "09:15 AM", "11:30 AM"] },
+      { date: "2026-05-01", timeSlots: ["09:15 AM", "10:00 AM", "03:00 PM"] },
     ],
   },
 ];
