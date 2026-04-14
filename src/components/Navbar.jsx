@@ -6,21 +6,20 @@ function Navbar() {
   const isLoggedIn = false;
 
   return (
-    <nav className="navbar navbar-expand-lg bg-white border-bottom">
+    <nav className="navbar navbar-expand-lg bg-white border-bottom py-2">
       <div className="container">
         {/* Logo */}
-        <Link className="navbar-brand d-flex align-items-center" to="/">
+        <Link className="navbar-brand d-flex align-items-center py-0 me-0" to="/">
           <img
             src="/logo-clinica.png"
             alt="Grupo 6 Clínica"
-            height="80"
-            className="d-inline-block"
+            className="navbar-logo"
           />
         </Link>
 
         {/* Toggle mobile */}
         <button
-          className="navbar-toggler border-0"
+          className="navbar-toggler border-0 shadow-none"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarNav"
@@ -33,7 +32,7 @@ function Navbar() {
 
         <div className="collapse navbar-collapse" id="navbarNav">
           {/* Links centrales */}
-          <ul className="navbar-nav mx-auto gap-1">
+          <ul className="navbar-nav mx-auto gap-1 mt-3 mt-lg-0">
             <li className="nav-item">
               <NavLink
                 className={({ isActive }) =>
@@ -58,12 +57,12 @@ function Navbar() {
           </ul>
 
           {/* Botones de autenticación */}
-          <div className="d-flex align-items-center gap-3 mt-3 mt-lg-0">
+          <div className="navbar-auth d-flex align-items-stretch align-items-lg-center gap-2 gap-lg-3 mt-3 mt-lg-0">
             {isLoggedIn ? (
               <>
                 <NavLink
                   className={({ isActive }) =>
-                    `nav-link ${isActive ? 'active fw-semibold' : ''}`
+                    `nav-link text-center ${isActive ? 'active fw-semibold' : ''}`
                   }
                   to="/mis-citas"
                 >
@@ -79,7 +78,7 @@ function Navbar() {
               </>
             ) : (
               <>
-                <Link className="nav-link" to="/login">
+                <Link className="nav-link text-center" to="/login">
                   Iniciar Sesión
                 </Link>
                 <Link
