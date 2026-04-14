@@ -1,46 +1,49 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function SpecialistCard({ doctor }) {
+  const navigate = useNavigate();
+  const [fav, setFav] = useState(false);
+
   return (
-    <div className="card specialist-card shadow-sm border-0 p-3 h-100">
+    <article className="specialist-card">
+      <button
+        type="button"
+        className={`fav-btn ${fav ? "fav-btn--active" : ""}`}
+        onClick={() => setFav(!fav)}
+        aria-label="Favorito"
+      >
+        <i className={fav ? "bi bi-heart-fill" : "bi bi-heart"}></i>
+      </button>
 
-      <div className="d-flex align-items-start">
-        <img
-          src={doctor.image}
-          alt={doctor.name}
-          className="rounded-4 me-3"
-          width="90"
-        />
-
-        <div className="flex-grow-1">
-          <span className="badge bg-success-subtle text-success mb-2">
+      <div className="card-top">
+        <img src={doctor.image} alt={doctor.name} className="doctor-img" />
+        <div className="doctor-info">
+          <span className={`status-tag status-${doctor.statusType}`}>
             {doctor.status}
           </span>
-
-          <h5 className="fw-semibold mb-1">{doctor.name}</h5>
-
-          <p className="text-primary mb-1">
-            {doctor.speciality}
-          </p>
-
-          <small className="text-muted">
-            ⭐ {doctor.rating} ({doctor.reviews} reviews)
-          </small>
+          <h4>{doctor.name}</h4>
+          <p className="specialty">{doctor.speciality}</p>
+          <div className="rating">
+            <i className="bi bi-star-fill"></i> {doctor.rating.toFixed(1)}{" "}
+            <span>({doctor.reviews} reseñas)</span>
+          </div>
         </div>
       </div>
 
-      <hr />
-
-      <div className="d-flex justify-content-between align-items-center">
+      <div className="card-bottom">
         <div>
-          <small className="text-muted">FEE STARTS FROM</small>
-          <h5 className="fw-bold">${doctor.price}</h5>
+          <small>TARIFA DESDE</small>
+          <strong>S/ {doctor.price}</strong>
         </div>
-
-        <button className="btn btn-primary rounded-pill px-4">
-          Book Appointment
+        <button
+          type="button"
+          className="book-btn"
+          onClick={() => navigate("/sacar-cita")}
+        >
+          Reservar Cita
         </button>
       </div>
-    </div>
+    </article>
   );
 }

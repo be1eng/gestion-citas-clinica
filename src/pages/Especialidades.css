@@ -1,0 +1,463 @@
+/* ============ PÁGINA ESPECIALIDADES ============ */
+.especialidades-page {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 32px;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 40px 24px 60px;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+/* ============ SIDEBAR ============ */
+.filters-sidebar {
+  background: #fff;
+  border: 1px solid #eef0f4;
+  border-radius: 18px;
+  padding: 24px 22px;
+  height: fit-content;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+.filters-sidebar h3 {
+  font-size: 17px;
+  font-weight: 800;
+  color: #1a202c;
+  margin: 0 0 24px;
+}
+
+.filter-group {
+  margin-bottom: 28px;
+}
+
+.filter-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  color: #6b7280;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+/* Checkboxes */
+.check-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: #374151;
+  padding: 6px 0;
+  cursor: pointer;
+}
+.check-item input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: #2563eb;
+  cursor: pointer;
+}
+
+/* Select (Ubicación) */
+.select-wrapper {
+  position: relative;
+}
+.select-wrapper i {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #9ca3af;
+  pointer-events: none;
+}
+.select-wrapper select {
+  width: 100%;
+  background: #f3f4f6;
+  border: 1.5px solid transparent;
+  border-radius: 10px;
+  padding: 10px 12px 10px 36px;
+  font-size: 14px;
+  color: #1a202c;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+}
+.select-wrapper select:focus {
+  outline: none;
+  border-color: #2563eb;
+  background: #fff;
+}
+
+/* Rating toggle */
+.rating-toggle {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+.rating-toggle button {
+  background: #fff;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 8px 4px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #4b5563;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.rating-toggle button:hover {
+  border-color: #2563eb;
+  color: #2563eb;
+}
+.rating-toggle button.active {
+  background: #2563eb;
+  border-color: #2563eb;
+  color: #fff;
+}
+
+/* Slider */
+.price-slider {
+  width: 100%;
+  accent-color: #2563eb;
+  margin: 6px 0 8px;
+  cursor: pointer;
+}
+.range-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #6b7280;
+  font-weight: 600;
+}
+
+/* Urgent Card */
+.urgent-card {
+  background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+  border-radius: 14px;
+  padding: 20px 18px;
+  margin-top: 8px;
+  text-align: center;
+}
+.urgent-card i {
+  font-size: 24px;
+  color: #2563eb;
+  margin-bottom: 10px;
+  display: inline-block;
+}
+.urgent-card h4 {
+  font-size: 14px;
+  font-weight: 800;
+  color: #1a202c;
+  margin: 0 0 6px;
+}
+.urgent-card p {
+  font-size: 12px;
+  color: #4b5563;
+  margin: 0 0 14px;
+  line-height: 1.5;
+}
+.urgent-card button {
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 50rem;
+  padding: 10px 18px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  width: 100%;
+  transition: transform 0.15s, box-shadow 0.2s;
+}
+.urgent-card button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.25);
+}
+
+/* ============ MAIN ============ */
+.specialists-main {
+  min-width: 0;
+}
+
+.main-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.main-header h1 {
+  font-size: 32px;
+  font-weight: 800;
+  color: #1a202c;
+  margin: 0 0 4px;
+}
+.main-header p {
+  color: #6b7280;
+  font-size: 14px;
+  margin: 0;
+}
+
+.view-toggle {
+  display: flex;
+  gap: 6px;
+  background: #f3f4f6;
+  border-radius: 10px;
+  padding: 4px;
+}
+.view-toggle button {
+  background: transparent;
+  border: none;
+  color: #6b7280;
+  padding: 6px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.15s, color 0.15s;
+}
+.view-toggle button.active {
+  background: #fff;
+  color: #2563eb;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Grid */
+.specialists-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+.specialists-grid.is-list {
+  grid-template-columns: 1fr;
+}
+
+/* ============ SPECIALIST CARD ============ */
+.specialist-card {
+  background: #fff;
+  border: 1px solid #eef0f4;
+  border-radius: 18px;
+  padding: 20px;
+  position: relative;
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.specialist-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+}
+
+.fav-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 32px;
+  height: 32px;
+  background: #fff;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  color: #9ca3af;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.15s;
+  z-index: 2;
+}
+.fav-btn:hover,
+.fav-btn--active {
+  color: #dc2626;
+}
+
+.card-top {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+.doctor-img {
+  width: 80px;
+  height: 80px;
+  border-radius: 14px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+.doctor-info {
+  flex: 1;
+  min-width: 0;
+  padding-right: 36px;
+}
+
+.status-tag {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 20px;
+  margin-bottom: 6px;
+}
+.status-available {
+  background: #dcfce7;
+  color: #15803d;
+}
+.status-next {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.doctor-info h4 {
+  font-size: 16px;
+  font-weight: 800;
+  color: #1a202c;
+  margin: 0 0 2px;
+  line-height: 1.3;
+}
+.specialty {
+  color: #2563eb;
+  font-size: 13px;
+  font-weight: 600;
+  margin: 0 0 6px;
+}
+.rating {
+  font-size: 12px;
+  color: #1a202c;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.rating i {
+  color: #f59e0b;
+}
+.rating span {
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.card-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding-top: 14px;
+  border-top: 1px solid #eef0f4;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.card-bottom small {
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  color: #9ca3af;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+.card-bottom strong {
+  font-size: 20px;
+  font-weight: 800;
+  color: #1a202c;
+}
+
+.book-btn {
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 50rem;
+  padding: 10px 20px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.2s;
+}
+.book-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.25);
+}
+
+/* ============ EMPTY STATE ============ */
+.empty-state {
+  background: #fff;
+  border: 1px dashed #d1d5db;
+  border-radius: 18px;
+  padding: 48px 24px;
+  text-align: center;
+  color: #6b7280;
+}
+.empty-state i {
+  font-size: 32px;
+  margin-bottom: 12px;
+  color: #9ca3af;
+}
+.empty-state p {
+  margin: 0;
+  font-size: 14px;
+}
+
+/* ============ PAGINATION ============ */
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 32px;
+}
+.pagination button {
+  min-width: 36px;
+  height: 36px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 50%;
+  color: #4b5563;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.15s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.pagination button:hover:not(:disabled):not(.active) {
+  border-color: #2563eb;
+  color: #2563eb;
+}
+.pagination button.active {
+  background: #2563eb;
+  border-color: #2563eb;
+  color: #fff;
+}
+.pagination button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 960px) {
+  .especialidades-page {
+    grid-template-columns: 1fr;
+    padding: 24px 16px 40px;
+    gap: 24px;
+  }
+  .specialists-grid {
+    grid-template-columns: 1fr;
+  }
+  .main-header h1 {
+    font-size: 26px;
+  }
+}
+
+@media (max-width: 540px) {
+  .card-top {
+    flex-direction: column;
+  }
+  .doctor-img {
+    width: 100%;
+    height: 180px;
+  }
+  .doctor-info {
+    padding-right: 0;
+  }
+  .card-bottom {
+    justify-content: space-between;
+  }
+}
