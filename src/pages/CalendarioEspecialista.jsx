@@ -104,7 +104,7 @@ function CalendarioEspecialista() {
               Dr. Jean Piere Sanchez — Cardiología &nbsp;·&nbsp; {getTodayAppointmentCount()} citas hoy
             </p>
           </div>
-          <div className="d-flex align-items-center gap-2">
+          <div className="d-flex align-items-center flex-wrap gap-2">
             <button className="btn btn-sm rounded-pill px-3 fw-semibold"
                     onClick={goToToday}
                     style={{ border: '1px solid var(--cs-outline-variant)', color: 'var(--cs-on-surface)', fontSize: '0.875rem' }}>
@@ -120,7 +120,7 @@ function CalendarioEspecialista() {
                     style={{ width: '36px', height: '36px' }}>
               ›
             </button>
-            <h4 className="fw-bold mb-0 ms-2" style={{ fontSize: '1.25rem', color: 'var(--cs-on-surface)' }}>
+            <h4 className="fw-bold mb-0 ms-1 ms-sm-2" style={{ fontSize: '1.15rem', color: 'var(--cs-on-surface)' }}>
               {weekMonth} {weekYear}
             </h4>
           </div>
@@ -171,7 +171,8 @@ function CalendarioEspecialista() {
         </div>
 
         {/* Calendario semanal tipo Google Calendar */}
-        <div className="rounded-4 clinical-shadow overflow-hidden" style={{ backgroundColor: 'var(--cs-surface-lowest)' }}>
+        <div className="gcal-wrapper rounded-4 clinical-shadow" style={{ backgroundColor: 'var(--cs-surface-lowest)' }}>
+         <div className="gcal-scroll">
 
           {/* Header de días */}
           <div className="gcal-header">
@@ -229,6 +230,7 @@ function CalendarioEspecialista() {
               </div>
             ))}
           </div>
+         </div>
         </div>
 
         {/* Detalle de cita seleccionada */}
@@ -255,7 +257,7 @@ function CalendarioEspecialista() {
                   </p>
                 </div>
               </div>
-              <div className="d-flex gap-2">
+              <div className="d-flex flex-wrap gap-2 w-100 w-md-auto appt-actions">
                 <button className="btn-primary-gradient">Ver Historial</button>
                 <button className="btn btn-light rounded-pill px-4 py-2 fw-medium"
                         style={{ fontSize: '0.875rem', border: '1px solid var(--cs-outline-variant)' }}>
