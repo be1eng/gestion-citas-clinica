@@ -5,10 +5,13 @@ import "../../styles/FormularioCita.css";
 import { useNavigate } from "react-router-dom";
 // --- SUB-COMPONENTES PARA CADA PASO ---
 
-const Step1Info = ({ formData, handleChange, summaryData }) =>
+const Step1Info = ({ formData, handleChange, summaryData, onNext, currentStep, totalSteps }) =>
   <div className="animate__animated animate__fadeIn step-container">
     <section className="step-form-section">
-      <h2 className="mb-4 step-title">Información de Paciente</h2>
+      <h2 className="mb-1 step-title">Información de Paciente</h2>
+      <p className="text-muted mb-4">
+        Paso {currentStep} de {totalSteps}: Por favor proporcione los datos del paciente para el registro clínico.
+      </p>
       <div className="d-flex gap-5">
         <div className="flex-fill mb-3 ">
           <label className="form-label fw-semibold">Nombre Completo</label>
@@ -52,7 +55,17 @@ const Step1Info = ({ formData, handleChange, summaryData }) =>
           value={formData.reason}
           onChange={handleChange}
           rows="3"
+          placeholder="Describa brevemente sus síntomas o motivo de la cita..."
         />
+      </div>
+      <div className="step-form-cta">
+        <button
+          className="btn btn-primary rounded-pill px-4"
+          onClick={onNext}
+          style={{ backgroundColor: "#2563EB", borderColor: "#2563EB" }}
+        >
+          Confirmar Cita
+        </button>
       </div>
     </section>
 
@@ -72,7 +85,7 @@ const Step1Info = ({ formData, handleChange, summaryData }) =>
               className="summaryImg rounded-4 "
             />
             <div className="informationCard flex-fill">
-              <h6 class="card-title" style={{ fontWeight: "bold" }}>
+              <h6 className="card-title" style={{ fontWeight: "bold" }}>
                 {summaryData.doctorName}
               </h6>
               <p className="card-text mb-0" style={{ fontSize: "14px" }}>
@@ -82,8 +95,8 @@ const Step1Info = ({ formData, handleChange, summaryData }) =>
           </div>
 
           <div className="d-flex gap-3">
-            <div class="summaryCard card flex-fill p-3">
-              <h5 class="card-title" style={{ fontSize: "12px" }}>
+            <div className="summaryCard card flex-fill p-3">
+              <h5 className="card-title" style={{ fontSize: "12px" }}>
                 FECHA
               </h5>
               <p
@@ -97,12 +110,12 @@ const Step1Info = ({ formData, handleChange, summaryData }) =>
                 })}
               </p>
             </div>
-            <div class="summaryCard card flex-fill p-3">
-              <h5 class="card-title" style={{ fontSize: "12px" }}>
+            <div className="summaryCard card flex-fill p-3">
+              <h5 className="card-title" style={{ fontSize: "12px" }}>
                 HORA
               </h5>
               <p
-                class="card-text"
+                className="card-text"
                 style={{ fontWeight: "600", fontSize: "16px" }}
               >
                 {summaryData.time}
@@ -135,33 +148,127 @@ const Step1Info = ({ formData, handleChange, summaryData }) =>
         </div>
         <div className="summaryCard rounded-3 p-4 d-flex flex-row gap-2">
           <i className="bi bi-info-circle text-primary mb-1 me-2" />
-          <p className="small text-muted">
-            Asegúrate de que tus datos sean correctos para procesar tu cita en
-            la clínica.
+          <p className="small text-muted mb-0">
+            Puedes reprogramar hasta 24 horas antes de la cita. Por favor trae tu historia clínica.
           </p>
         </div>
       </div>
     </section>
   </div>;
 
-const Step2Review = ({ formData, handleChange }) =>
-  <div className="animate__animated animate__fadeIn">
-    <h4 className="step-title mb-4 text-primary">Verifique sus datos</h4>
-    <ul className="list-group list-group-flush">
-      <li className="list-group-item">
-        <strong>Nombre completo:</strong> {formData.fullName}
-      </li>
-      <li className="list-group-item">
-        <strong>Teléfono:</strong> {formData.phone}
-      </li>
-      <li className="list-group-item">
-        <strong>Email:</strong> {formData.email}
-      </li>
-      <li className="list-group-item">
-        <strong>Motivo de la visita:</strong> {formData.reason || "-"}
-      </li>
-    </ul>
-  </div>;
+const Step2Review = ({ formData, summaryData, currentStep, totalSteps }) => {
+  const formattedDate = new Date(summaryData.date).toLocaleDateString("es-PE", {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric"
+  });
+
+  return (
+    <div className="animate__animated animate__fadeIn review-container">
+      <h2 className="mb-1 step-title">Verifique sus datos</h2>
+      <p className="text-muted mb-4">
+        Paso {currentStep} de {totalSteps}: Confirme que la información es correcta antes de finalizar su cita.
+      </p>
+
+      <div className="review-grid">
+        {/* Información del paciente */}
+        <section className="review-card">
+          <div className="review-card-header">
+            <i className="bi bi-person-circle review-card-icon" />
+            <h5 className="mb-0 fw-semibold">Información del paciente</h5>
+          </div>
+
+          <dl className="review-list mb-0">
+            <div className="review-row">
+              <dt>Nombre completo</dt>
+              <dd>{formData.fullName || <span className="text-muted fst-italic">Sin registrar</span>}</dd>
+            </div>
+            <div className="review-row">
+              <dt>Teléfono</dt>
+              <dd>{formData.phone || <span className="text-muted fst-italic">Sin registrar</span>}</dd>
+            </div>
+            <div className="review-row">
+              <dt>Email</dt>
+              <dd>{formData.email || <span className="text-muted fst-italic">Sin registrar</span>}</dd>
+            </div>
+            <div className="review-row">
+              <dt>Motivo de la visita</dt>
+              <dd>{formData.reason || <span className="text-muted fst-italic">No especificado</span>}</dd>
+            </div>
+          </dl>
+        </section>
+
+        {/* Detalles de la cita */}
+        <section className="review-card">
+          <div className="review-card-header">
+            <i className="bi bi-calendar-check review-card-icon" />
+            <h5 className="mb-0 fw-semibold">Detalles de la cita</h5>
+          </div>
+
+          <div className="review-doctor">
+            <img
+              src={summaryData.doctorPhoto}
+              alt={summaryData.doctorName}
+              className="review-doctor-img"
+            />
+            <div>
+              <h6 className="mb-0 fw-bold">{summaryData.doctorName}</h6>
+              <p className="mb-0 text-muted small">{summaryData.speciality}</p>
+            </div>
+          </div>
+
+          <div className="review-datetime">
+            <div className="review-datetime-item">
+              <i className="bi bi-calendar3 text-primary" />
+              <div>
+                <small className="text-muted d-block text-capitalize">Fecha</small>
+                <span className="fw-semibold text-capitalize">{formattedDate}</span>
+              </div>
+            </div>
+            <div className="review-datetime-item">
+              <i className="bi bi-clock text-primary" />
+              <div>
+                <small className="text-muted d-block">Hora</small>
+                <span className="fw-semibold">{summaryData.time}</span>
+              </div>
+            </div>
+            <div className="review-datetime-item">
+              <i className="bi bi-geo-alt text-primary" />
+              <div>
+                <small className="text-muted d-block">Lugar</small>
+                <span className="fw-semibold text-capitalize">{summaryData.place}</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="review-cost">
+            <div className="d-flex justify-content-between mb-2">
+              <span className="text-muted">Costo por consulta</span>
+              <span>${summaryData.fee}</span>
+            </div>
+            <div className="d-flex justify-content-between mb-2">
+              <span className="text-muted">Cobertura de seguro</span>
+              <span className="text-danger">-${summaryData.insuranceAmount}</span>
+            </div>
+            <hr className="my-2" />
+            <div className="d-flex justify-content-between fw-bold">
+              <span>Total a pagar</span>
+              <span className="text-primary fs-5">${summaryData.total}</span>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <div className="review-note">
+        <i className="bi bi-shield-check text-primary" />
+        <span className="small text-muted">
+          Al confirmar, aceptas las políticas de atención de la clínica. Recibirás un correo con los detalles.
+        </span>
+      </div>
+    </div>
+  );
+};
 
 const Step3Final = ({ formData, handleChange }) =>
   <div className="text-center py-4 animate__animated animate__pulse">
@@ -251,41 +358,52 @@ function FormularioCita() {
             formData={formData}
             handleChange={handleChange}
             summaryData={summaryData}
+            onNext={nextStep}
+            currentStep={currentStep}
+            totalSteps={stepsConfig.length}
           />}
         {currentStep === 2 &&
-          <Step2Review formData={formData} handleChange={handleChange} />}
+          <Step2Review
+            formData={formData}
+            summaryData={summaryData}
+            currentStep={currentStep}
+            totalSteps={stepsConfig.length}
+          />}
         {currentStep === 3 &&
           <Step3Final formData={formData} handleChange={handleChange} />}
       </div>
 
-      {/* Botones de Navegación */}
-      <div className="d-flex justify-content-between mt-3">
-        {currentStep < 3 &&
-          <button
-            className="btn btn-outline-secondary px-4"
-            onClick={prevStep}
-            disabled={currentStep === 1}
-          >
-            Regresar
-          </button>}
+      {/* Botones de Navegación (pasos 2 y 3) */}
+      {currentStep > 1 && (
+        <div className="d-flex justify-content-between mt-3">
+          {currentStep < 3 && (
+            <button
+              className="btn btn-outline-secondary rounded-pill px-4"
+              onClick={prevStep}
+            >
+              Regresar
+            </button>
+          )}
 
-        {currentStep === 1 &&
-          <button className="btn btn-primary px-4" onClick={nextStep}>
-            Siguiente
-          </button>}
+          {currentStep === 2 && (
+            <button
+              className="btn btn-primary rounded-pill px-4"
+              onClick={nextStep}
+              style={{ backgroundColor: "#2563EB", borderColor: "#2563EB" }}
+            >
+              Confirmar Cita
+            </button>
+          )}
 
-        {currentStep === 2 &&
-          <button className="btn btn-success px-4" onClick={nextStep}>
-            Confirmar Cita
-          </button>}
-
-        {currentStep === 3 &&
-          <Modal
-            show={showSuccess}
-            summary={summaryData}
-            onClose={() => navigate("/")}
-          />}
-      </div>
+          {currentStep === 3 && (
+            <Modal
+              show={showSuccess}
+              summary={summaryData}
+              onClose={() => navigate("/")}
+            />
+          )}
+        </div>
+      )}
     </div>
   );
 }

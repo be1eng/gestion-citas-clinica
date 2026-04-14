@@ -16,7 +16,7 @@ const Stepper = ({ steps, currentStep }) => {
             className={`step-horizontal ${isActive ? 'active' : ''} ${isComplete ? 'complete' : ''}`}
           >
             <div className="step-icon">
-              {isComplete ? <i className="bi bi-check-lg"></i> : <i className={`fas ${step.icon}`}></i>}
+              {isComplete ? <i className="bi bi-check-lg"></i> : <i className={`bi ${step.icon}`}></i>}
             </div>
             <div className="step-description">{step.title}</div>
           </div>
