@@ -146,14 +146,13 @@ function PerfilEspecialista() {
 
         {/* Hero - Perfil del Doctor */}
         <section className="mb-5">
-          <div className="rounded-4 p-4 p-md-5 d-flex flex-column flex-md-row gap-4 align-items-center align-items-md-end"
+          <div className="doctor-hero rounded-4 p-4 p-md-5 d-flex flex-column flex-md-row gap-4 align-items-center align-items-md-end"
                style={{ backgroundColor: 'var(--cs-surface-low)' }}>
             <div className="flex-shrink-0">
               <img
                 src={doctor.image}
                 alt={doctor.name}
-                className="rounded-4 shadow"
-                style={{ width: '200px', height: '200px', objectFit: 'cover' }}
+                className="doctor-hero__img rounded-4 shadow"
               />
             </div>
             <div className="text-center text-md-start flex-grow-1">
@@ -161,7 +160,7 @@ function PerfilEspecialista() {
                     style={{ backgroundColor: 'var(--cs-primary-fixed)', color: 'var(--cs-primary)', fontSize: '0.7rem', letterSpacing: '0.05em' }}>
                 {doctor.speciality}
               </span>
-              <h1 className="fw-bold mb-2" style={{ fontSize: '2.5rem', color: 'var(--cs-on-surface)' }}>
+              <h1 className="doctor-hero__name fw-bold mb-2" style={{ color: 'var(--cs-on-surface)' }}>
                 {doctor.name}
               </h1>
               <p className="mb-4" style={{ color: 'var(--cs-on-surface-variant)', fontSize: '1.05rem', maxWidth: '600px' }}>
@@ -190,10 +189,10 @@ function PerfilEspecialista() {
           <div className="col-lg-8">
 
             {/* Sección Agendar Cita */}
-            <section className="rounded-4 p-4 p-md-5 mb-4 clinical-shadow"
+            <section className="agendar-cita rounded-4 p-3 p-md-5 mb-4 clinical-shadow"
                      style={{ backgroundColor: 'var(--cs-surface-lowest)' }}>
               <div className="d-flex justify-content-between align-items-center mb-4">
-                <h2 className="fw-bold mb-0" style={{ fontSize: '1.5rem' }}>Agendar Cita</h2>
+                <h2 className="fw-bold mb-0 agendar-cita__title">Agendar Cita</h2>
                 <div className="d-flex gap-2">
                   <button
                     className="btn btn-light rounded-circle p-2"
@@ -215,18 +214,17 @@ function PerfilEspecialista() {
                 <p className="fw-medium mb-3" style={{ color: 'var(--cs-on-surface-variant)', fontSize: '0.875rem' }}>
                   Selecciona una Fecha — {monthYearLabel(weekStart)}
                 </p>
-                <div className="row g-3">
+                <div className="week-days">
                   {weekDays.map((item) => (
-                    <div className="col" key={item.iso}>
-                      <div
-                        className={`calendar-day ${
-                          selectedDate === item.iso ? 'calendar-day--selected' : ''
-                        } ${item.disabled ? 'calendar-day--disabled' : ''}`}
-                        onClick={() => !item.disabled && handleSelectDate(item.iso)}
-                      >
-                        <span className="calendar-day__label">{item.label}</span>
-                        <span className="calendar-day__number">{item.number}</span>
-                      </div>
+                    <div
+                      key={item.iso}
+                      className={`calendar-day ${
+                        selectedDate === item.iso ? 'calendar-day--selected' : ''
+                      } ${item.disabled ? 'calendar-day--disabled' : ''}`}
+                      onClick={() => !item.disabled && handleSelectDate(item.iso)}
+                    >
+                      <span className="calendar-day__label">{item.label}</span>
+                      <span className="calendar-day__number">{item.number}</span>
                     </div>
                   ))}
                 </div>
@@ -242,16 +240,15 @@ function PerfilEspecialista() {
                     No hay horarios disponibles para este día.
                   </p>
                 ) : (
-                  <div className="row g-3">
+                  <div className="time-slots-grid">
                     {timeSlots.map((time) => (
-                      <div className="col-4 col-md-3" key={time}>
-                        <button
-                          className={`time-slot w-100 ${selectedTime === time ? 'time-slot--selected' : ''}`}
-                          onClick={() => setSelectedTime(time)}
-                        >
-                          {time}
-                        </button>
-                      </div>
+                      <button
+                        key={time}
+                        className={`time-slot ${selectedTime === time ? 'time-slot--selected' : ''}`}
+                        onClick={() => setSelectedTime(time)}
+                      >
+                        {time}
+                      </button>
                     ))}
                   </div>
                 )}
