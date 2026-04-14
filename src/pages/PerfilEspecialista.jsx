@@ -121,7 +121,23 @@ function PerfilEspecialista() {
   }
 
   const handleConfirm = () => {
-    navigate('/sacar-cita');
+    if (!selectedDate || !selectedTime) return;
+    const fee = doctor.price;
+    const insuranceAmount = Math.round(fee * 0.4);
+    navigate('/sacar-cita', {
+      state: {
+        doctorId: doctor.id,
+        doctorName: doctor.name,
+        doctorPhoto: doctor.image,
+        speciality: doctor.speciality,
+        place: doctor.location,
+        date: selectedDate,
+        time: selectedTime,
+        fee: fee.toFixed(2),
+        insuranceAmount: insuranceAmount.toFixed(2),
+        total: (fee - insuranceAmount).toFixed(2),
+      },
+    });
   };
 
   return (

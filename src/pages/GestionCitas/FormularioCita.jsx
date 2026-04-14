@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Stepper from "../../components/Stepper";
 import Modal from "../../components/ModalCita";
 import "../../styles/FormularioCita.css";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 // --- SUB-COMPONENTES PARA CADA PASO ---
 
 const Step1Info = ({ formData, handleChange, summaryData, onNext, currentStep, totalSteps }) =>
@@ -282,6 +282,9 @@ const Step3Final = ({ formData }) =>
   </div>;
 
 function FormularioCita() {
+  const location = useLocation();
+  const incoming = location.state ?? null;
+
   // 1. DEFINIR EL ESTADO DEL PASO ACTUAL (Faltaba esto)
   const [currentStep, setCurrentStep] = useState(1);
 
@@ -300,22 +303,35 @@ function FormularioCita() {
     reason: ""
   };
 
-  // resumen falso
-  const fakeSummaryInfo = {
-    doctorPhoto:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuC_-hWCzfTEU7Cmil3zyaa470SzEwn5yNIPRSfMeSe5nqDwyadQXEEWDpR7kknRqcjmfLKSDUHBFP9obFClwJs5uL8VFcoIYugPrY2u9Zq_i5Wlg2AjYJq7cZVbfknjdPwUqN8bOy04mF1KnBlkTfwbmEuOaa3gNaFYW05AQAMxCI2eNpLG-UZEnA1jwI8yKSYyIReUnor9gb_5MwLYlpLNF2TG3gQ_2DaTHZmR8F1NwokhzeinfMuHabeTgEW4A7Ie19z3_J5zYKs",
-    doctorName: "Dr. Julian Vance",
-    speciality: "Lead Cardiologist",
-    fee: "120.00",
-    insuranceAmount: "80.00",
-    total: "40.00",
-    date: "2026-04-10",
-    time: "9:00 AM",
-    place: "clinica Arequipa"
+  // resumen por defecto (fallback si no llega por navigate state)
+  const defaultSummary = {
+    doctorPhoto: "/female-doctor-portrait.jpg",
+    doctorName: "Dra. Sara Mitchell",
+    speciality: "Cardióloga Principal",
+    fee: "180.00",
+    insuranceAmount: "72.00",
+    total: "108.00",
+    date: "2026-04-20",
+    time: "09:00 AM",
+    place: "Sede Principal - Ala A"
   };
 
+  const initialSummary = incoming
+    ? {
+        doctorPhoto: incoming.doctorPhoto,
+        doctorName: incoming.doctorName,
+        speciality: incoming.speciality,
+        fee: incoming.fee,
+        insuranceAmount: incoming.insuranceAmount,
+        total: incoming.total,
+        date: incoming.date,
+        time: incoming.time,
+        place: incoming.place,
+      }
+    : defaultSummary;
+
   const [formData, setFormData] = useState(fakeUser);
-  const [summaryData, setSummaryData] = useState(fakeSummaryInfo);
+  const [summaryData, setSummaryData] = useState(initialSummary);
   const [showSuccess, setShowSuccess] = useState(false);
 
   useEffect(
