@@ -1,30 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-
-// Datos de ejemplo del especialista
-const doctorData = {
-  id: 1,
-  name: 'Dr. Jean Piere Sanchez',
-  specialty: 'Cardiólogo Senior',
-  bio: 'Dedicado a la salud cardiovascular con más de 15 años de experiencia en procedimientos de diagnóstico no invasivo y atención integral al paciente.',
-  photo: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBo50wLWNcMHhg0rIfsGzuFH1p66qGbHoMHs-6ZTS_fMvnVFwS-I07-wMpCdRuygETx2FdJXkhpanC2FV33DZRIWVwtMYsEqZbEYD6CO1hDpVgzK3PR9zynEh2pXZtDHYOhC0fOdIbv9w6giYkSC8irwDqYmNMVmfIkb1Nrib_eQx8Z50TAx-rpem8SB5bGEmFL-Y8pOeQP_Taxqhg9edwPI8BlpMPBwj6eD7_JscU66zXJVV8hH-Scf9sgMSaUIAJpEp6sStWuyoc',
-  location: 'Sede Principal - Ala B',
-  rating: 4.9,
-  reviews: 240,
-  experience: [
-    { period: '2018 - Presente', role: 'Jefe de Cardiología', place: 'Grupo 6 Clínica', active: true },
-    { period: '2012 - 2018', role: 'Médico Senior', place: 'Instituto del Corazón', active: false },
-    { period: '2008 - 2012', role: 'Residente de Cardiología', place: 'Centro Médico Central', active: false },
-  ],
-  expertise: [
-    { icon: '❤️', title: 'Cardiología Intervencionista', desc: 'Especializado en procedimientos mínimamente invasivos para diagnosticar y tratar enfermedades coronarias.' },
-    { icon: '🛡️', title: 'Cuidado Preventivo', desc: 'Exámenes cardíacos completos y planes de manejo de estilo de vida personalizados.' },
-  ],
-  feedback: [
-    { name: 'Sara M.', date: 'Visitó en septiembre', text: '"El Dr. Vance es increíblemente minucioso. Se tomó el tiempo de explicarme mis resultados de una manera que pude entender. Muy recomendado."' },
-    { name: 'Carlos R.', date: 'Visitó en agosto', text: '"El profesionalismo en la clínica es inigualable. La reserva fue sencilla y la atención fue de primer nivel."' },
-  ],
-};
+import { getSpecialistById } from '../data/specialists';
 
 // Días de la semana para el calendario
 const weekDays = [
@@ -46,7 +22,19 @@ function PerfilEspecialista() {
   const [selectedDate, setSelectedDate] = useState(22);
   const [selectedTime, setSelectedTime] = useState('11:15 AM');
 
-  const doctor = doctorData;
+  const doctor = getSpecialistById(id);
+
+  if (!doctor) {
+    return (
+      <div className="container py-5 text-center">
+        <h2 className="fw-bold mb-3">Especialista no encontrado</h2>
+        <p className="text-muted mb-4">El especialista que buscas no existe o fue removido.</p>
+        <button className="btn btn-primary rounded-pill px-4" onClick={() => navigate('/especialidades')}>
+          Ver todos los especialistas
+        </button>
+      </div>
+    );
+  }
 
   const handleConfirm = () => {
     navigate('/sacar-cita');
@@ -62,7 +50,7 @@ function PerfilEspecialista() {
                style={{ backgroundColor: 'var(--cs-surface-low)' }}>
             <div className="flex-shrink-0">
               <img
-                src={doctor.photo}
+                src={doctor.image}
                 alt={doctor.name}
                 className="rounded-4 shadow"
                 style={{ width: '200px', height: '200px', objectFit: 'cover' }}
@@ -71,7 +59,7 @@ function PerfilEspecialista() {
             <div className="text-center text-md-start flex-grow-1">
               <span className="badge rounded-pill px-3 py-2 mb-3 fw-bold text-uppercase"
                     style={{ backgroundColor: 'var(--cs-primary-fixed)', color: 'var(--cs-primary)', fontSize: '0.7rem', letterSpacing: '0.05em' }}>
-                {doctor.specialty}
+                {doctor.speciality}
               </span>
               <h1 className="fw-bold mb-2" style={{ fontSize: '2.5rem', color: 'var(--cs-on-surface)' }}>
                 {doctor.name}

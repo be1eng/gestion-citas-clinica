@@ -1,69 +1,7 @@
 import React, { useMemo, useState } from "react";
 import SpecialistCard from "../components/SpecialistCard";
+import { specialists } from "../data/specialists";
 import "./Especialidades.css";
-
-export const specialists = [
-  {
-    id: 1,
-    name: "Dra. Sara Mitchell",
-    speciality: "Cardióloga Principal",
-    specialityKey: "Cardiología",
-    rating: 4.9,
-    reviews: 124,
-    price: 180,
-    status: "Disponible",
-    statusType: "available",
-    image: "/female-doctor-portrait.jpg",
-  },
-  {
-    id: 2,
-    name: "Dr. Marcus Thorne",
-    speciality: "Cardiología Intervencionista",
-    specialityKey: "Cardiología",
-    rating: 4.8,
-    reviews: 98,
-    price: 220,
-    status: "Disponible",
-    statusType: "available",
-    image: "/male-especialista.webp",
-  },
-  {
-    id: 3,
-    name: "Dr. James Wilson",
-    speciality: "Neurólogo",
-    specialityKey: "Neurología",
-    rating: 4.6,
-    reviews: 142,
-    price: 210,
-    status: "Disponible",
-    statusType: "available",
-    image: "/mal-physician.jpg",
-  },
-  {
-    id: 4,
-    name: "Dra. Elena Rodríguez",
-    speciality: "Dermatóloga Estética",
-    specialityKey: "Dermatología",
-    rating: 4.7,
-    reviews: 188,
-    price: 160,
-    status: "Disponible",
-    statusType: "available",
-    image: "/dermatologist.jpg",
-  },
-  {
-    id: 5,
-    name: "Dr. Andrés Paredes",
-    speciality: "Pediatra General",
-    specialityKey: "Pediatría",
-    rating: 4.5,
-    reviews: 64,
-    price: 140,
-    status: "Próx: Jue",
-    statusType: "next",
-    image: "/man-especialista.webp",
-  },
-];
 
 const ALL_SPECIALTIES = ["Cardiología", "Neurología", "Pediatría", "Dermatología"];
 const PAGE_SIZE = 4;

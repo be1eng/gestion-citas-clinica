@@ -1,6 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { getSpecialistById, recommendedIds } from "../data/specialists";
 import "./Inicio.css";
+
+const recommendedDoctors = recommendedIds.map(getSpecialistById);
 
 export default function Inicio() {
   return (
@@ -134,32 +137,16 @@ export default function Inicio() {
         </div>
 
         <div className="recommended-grid">
-          <div className="doctor-card">
-            <img src="/female-doctor-portrait.jpg" alt="Dra. Sara Mitchell" className="doctor-photo" />
-            <span className="availability-tag">Hoy</span>
-            <h4>Dra. Sara Mitchell</h4>
-            <p className="doctor-role">Cardióloga Principal</p>
-            <p className="doctor-desc">Especialista en salud cardíaca preventiva y diagnóstico por imagen cardíaca avanzada.</p>
-            <Link to="/sacar-cita" className="btn-book">Reservar Cita</Link>
-          </div>
-
-          <div className="doctor-card">
-            <img src="/mal-physician.jpg" alt="Dr. James Wilson" className="doctor-photo" />
-            <span className="availability-tag">Hoy</span>
-            <h4>Dr. James Wilson</h4>
-            <p className="doctor-role">Neurólogo</p>
-            <p className="doctor-desc">Experto en trastornos del sueño, migrañas, salud cognitiva y cuidado de la memoria.</p>
-            <Link to="/sacar-cita" className="btn-book">Reservar Cita</Link>
-          </div>
-
-          <div className="doctor-card">
-            <img src="/dermatologist.jpg" alt="Dra. Elena Rodríguez" className="doctor-photo" />
-            <span className="availability-tag">Hoy</span>
-            <h4>Dra. Elena Rodríguez</h4>
-            <p className="doctor-role">Dermatóloga</p>
-            <p className="doctor-desc">Dedicada al bienestar de la piel y cuidado estético con más de 15 años de experiencia.</p>
-            <Link to="/sacar-cita" className="btn-book">Reservar Cita</Link>
-          </div>
+          {recommendedDoctors.map((doc) => (
+            <div className="doctor-card" key={doc.id}>
+              <img src={doc.image} alt={doc.name} className="doctor-photo" />
+              <span className="availability-tag">Hoy</span>
+              <h4>{doc.name}</h4>
+              <p className="doctor-role">{doc.speciality}</p>
+              <p className="doctor-desc">{doc.bio}</p>
+              <Link to={`/especialista/${doc.id}`} className="btn-book">Reservar Cita</Link>
+            </div>
+          ))}
         </div>
       </div>
 

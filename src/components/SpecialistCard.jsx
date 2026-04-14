@@ -39,7 +39,7 @@ export default function SpecialistCard({ doctor }) {
         <button
           type="button"
           className="book-btn"
-          onClick={() => navigate("/sacar-cita")}
+          onClick={() => navigate(`/especialista/${doctor.id}`)}
         >
           Reservar Cita
         </button>
