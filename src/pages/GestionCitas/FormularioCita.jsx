@@ -5,12 +5,26 @@ import "../../styles/FormularioCita.css";
 import { useLocation, useNavigate } from "react-router-dom";
 // --- SUB-COMPONENTES PARA CADA PASO ---
 
-const Step1Info = ({ formData, handleChange, summaryData, onNext, currentStep, totalSteps }) =>
+const parseLocalDate = (iso) => {
+  if (!iso) return null;
+  const [y, m, d] = iso.split("-").map(Number);
+  return new Date(y, m - 1, d);
+};
+
+const Step1Info = ({
+  formData,
+  handleChange,
+  summaryData,
+  onNext,
+  currentStep,
+  totalSteps
+}) =>
   <div className="animate__animated animate__fadeIn step-container">
     <section className="step-form-section">
       <h2 className="mb-1 step-title">Información de Paciente</h2>
       <p className="text-muted mb-4">
-        Paso {currentStep} de {totalSteps}: Por favor proporcione los datos del paciente para el registro clínico.
+        Paso {currentStep} de {totalSteps}: Por favor proporcione los datos del
+        paciente para el registro clínico.
       </p>
       <div className="d-flex flex-column flex-sm-row gap-3 gap-sm-5">
         <div className="flex-fill mb-3 ">
@@ -103,7 +117,7 @@ const Step1Info = ({ formData, handleChange, summaryData, onNext, currentStep, t
                 className="card-text"
                 style={{ fontWeight: "600", fontSize: "16px" }}
               >
-                {new Date(summaryData.date).toLocaleDateString("es-PE", {
+                {parseLocalDate(summaryData.date).toLocaleDateString("es-PE", {
                   month: "short",
                   day: "numeric",
                   year: "numeric"
@@ -149,7 +163,8 @@ const Step1Info = ({ formData, handleChange, summaryData, onNext, currentStep, t
         <div className="summaryCard rounded-3 p-4 d-flex flex-row gap-2">
           <i className="bi bi-info-circle text-primary mb-1 me-2" />
           <p className="small text-muted mb-0">
-            Puedes reprogramar hasta 24 horas antes de la cita. Por favor trae tu historia clínica.
+            Puedes reprogramar hasta 24 horas antes de la cita. Por favor trae
+            tu historia clínica.
           </p>
         </div>
       </div>
@@ -157,7 +172,18 @@ const Step1Info = ({ formData, handleChange, summaryData, onNext, currentStep, t
   </div>;
 
 const Step2Review = ({ formData, summaryData, currentStep, totalSteps }) => {
-  const formattedDate = new Date(summaryData.date).toLocaleDateString("es-PE", {
+  // const [year, month, day] = summaryData.date.split("-");
+  // const formattedDate = new Date(summaryData.date).toLocaleDateString("es-PE", {
+  //   weekday: "long",
+  //   day: "numeric",
+  //   month: "long",
+  //   year: "numeric"
+  // });
+
+
+  const formattedDate = parseLocalDate(
+    summaryData.date
+  ).toLocaleDateString("es-PE", {
     weekday: "long",
     day: "numeric",
     month: "long",
@@ -168,7 +194,8 @@ const Step2Review = ({ formData, summaryData, currentStep, totalSteps }) => {
     <div className="animate__animated animate__fadeIn review-container">
       <h2 className="mb-1 step-title">Verifique sus datos</h2>
       <p className="text-muted mb-4">
-        Paso {currentStep} de {totalSteps}: Confirme que la información es correcta antes de finalizar su cita.
+        Paso {currentStep} de {totalSteps}: Confirme que la información es
+        correcta antes de finalizar su cita.
       </p>
 
       <div className="review-grid">
@@ -182,19 +209,33 @@ const Step2Review = ({ formData, summaryData, currentStep, totalSteps }) => {
           <dl className="review-list mb-0">
             <div className="review-row">
               <dt>Nombre completo</dt>
-              <dd>{formData.fullName || <span className="text-muted fst-italic">Sin registrar</span>}</dd>
+              <dd>
+                {formData.fullName ||
+                  <span className="text-muted fst-italic">Sin registrar</span>}
+              </dd>
             </div>
             <div className="review-row">
               <dt>Teléfono</dt>
-              <dd>{formData.phone || <span className="text-muted fst-italic">Sin registrar</span>}</dd>
+              <dd>
+                {formData.phone ||
+                  <span className="text-muted fst-italic">Sin registrar</span>}
+              </dd>
             </div>
             <div className="review-row">
               <dt>Email</dt>
-              <dd>{formData.email || <span className="text-muted fst-italic">Sin registrar</span>}</dd>
+              <dd>
+                {formData.email ||
+                  <span className="text-muted fst-italic">Sin registrar</span>}
+              </dd>
             </div>
             <div className="review-row">
               <dt>Motivo de la visita</dt>
-              <dd>{formData.reason || <span className="text-muted fst-italic">No especificado</span>}</dd>
+              <dd>
+                {formData.reason ||
+                  <span className="text-muted fst-italic">
+                    No especificado
+                  </span>}
+              </dd>
             </div>
           </dl>
         </section>
@@ -213,8 +254,12 @@ const Step2Review = ({ formData, summaryData, currentStep, totalSteps }) => {
               className="review-doctor-img"
             />
             <div>
-              <h6 className="mb-0 fw-bold">{summaryData.doctorName}</h6>
-              <p className="mb-0 text-muted small">{summaryData.speciality}</p>
+              <h6 className="mb-0 fw-bold">
+                {summaryData.doctorName}
+              </h6>
+              <p className="mb-0 text-muted small">
+                {summaryData.speciality}
+              </p>
             </div>
           </div>
 
@@ -222,22 +267,30 @@ const Step2Review = ({ formData, summaryData, currentStep, totalSteps }) => {
             <div className="review-datetime-item">
               <i className="bi bi-calendar3 text-primary" />
               <div>
-                <small className="text-muted d-block text-capitalize">Fecha</small>
-                <span className="fw-semibold text-capitalize">{formattedDate}</span>
+                <small className="text-muted d-block text-capitalize">
+                  Fecha
+                </small>
+                <span className="fw-semibold text-capitalize">
+                  {formattedDate}
+                </span>
               </div>
             </div>
             <div className="review-datetime-item">
               <i className="bi bi-clock text-primary" />
               <div>
                 <small className="text-muted d-block">Hora</small>
-                <span className="fw-semibold">{summaryData.time}</span>
+                <span className="fw-semibold">
+                  {summaryData.time}
+                </span>
               </div>
             </div>
             <div className="review-datetime-item">
               <i className="bi bi-geo-alt text-primary" />
               <div>
                 <small className="text-muted d-block">Lugar</small>
-                <span className="fw-semibold text-capitalize">{summaryData.place}</span>
+                <span className="fw-semibold text-capitalize">
+                  {summaryData.place}
+                </span>
               </div>
             </div>
           </div>
@@ -245,16 +298,22 @@ const Step2Review = ({ formData, summaryData, currentStep, totalSteps }) => {
           <div className="review-cost">
             <div className="d-flex justify-content-between mb-2">
               <span className="text-muted">Costo por consulta</span>
-              <span>${summaryData.fee}</span>
+              <span>
+                ${summaryData.fee}
+              </span>
             </div>
             <div className="d-flex justify-content-between mb-2">
               <span className="text-muted">Cobertura de seguro</span>
-              <span className="text-danger">-${summaryData.insuranceAmount}</span>
+              <span className="text-danger">
+                -${summaryData.insuranceAmount}
+              </span>
             </div>
             <hr className="my-2" />
             <div className="d-flex justify-content-between fw-bold">
               <span>Total a pagar</span>
-              <span className="text-primary fs-5">${summaryData.total}</span>
+              <span className="text-primary fs-5">
+                ${summaryData.total}
+              </span>
             </div>
           </div>
         </section>
@@ -263,7 +322,8 @@ const Step2Review = ({ formData, summaryData, currentStep, totalSteps }) => {
       <div className="review-note">
         <i className="bi bi-shield-check text-primary" />
         <span className="small text-muted">
-          Al confirmar, aceptas las políticas de atención de la clínica. Recibirás un correo con los detalles.
+          Al confirmar, aceptas las políticas de atención de la clínica.
+          Recibirás un correo con los detalles.
         </span>
       </div>
     </div>
@@ -283,12 +343,12 @@ const Step3Final = ({ formData }) =>
 
 function FormularioCita() {
   const location = useLocation();
-  const incoming = location.state ?? null;
+  const incoming = location.state || null;
 
-  // 1. DEFINIR EL ESTADO DEL PASO ACTUAL (Faltaba esto)
+  // 1. DEFINIR EL ESTADO DEL PASO ACTUAL
   const [currentStep, setCurrentStep] = useState(1);
 
-  // 2. DEFINIR LA CONFIGURACIÓN DE LOS PASOS (Faltaba esto)
+  // 2. DEFINIR LA CONFIGURACIÓN DE LOS PASOS
   const stepsConfig = [
     { title: "Información de Paciente", icon: "bi-person-fill" },
     { title: "Resumen", icon: "bi-eye-fill" },
@@ -326,7 +386,7 @@ function FormularioCita() {
         total: incoming.total,
         date: incoming.date,
         time: incoming.time,
-        place: incoming.place,
+        place: incoming.place
       }
     : defaultSummary;
 
@@ -362,7 +422,7 @@ function FormularioCita() {
   };
 
   const prevStep = () => setCurrentStep(prev => prev - 1);
-  
+
   const navigate = useNavigate();
   return (
     <div className="container mt-5 " style={{ maxWidth: "100%" }}>
@@ -392,36 +452,32 @@ function FormularioCita() {
       </div>
 
       {/* Botones de Navegación (pasos 2 y 3) */}
-      {currentStep > 1 && (
+      {currentStep > 1 &&
         <div className="d-flex flex-column flex-sm-row justify-content-sm-between gap-2 gap-sm-0 mt-3 px-2 px-md-0">
-          {currentStep < 3 && (
+          {currentStep < 3 &&
             <button
               className="btn btn-outline-secondary rounded-pill px-4 form-nav-btn"
               onClick={prevStep}
             >
               Regresar
-            </button>
-          )}
+            </button>}
 
-          {currentStep === 2 && (
+          {currentStep === 2 &&
             <button
               className="btn btn-primary rounded-pill px-4 form-nav-btn"
               onClick={nextStep}
               style={{ backgroundColor: "#2563EB", borderColor: "#2563EB" }}
             >
               Confirmar Cita
-            </button>
-          )}
+            </button>}
 
-          {currentStep === 3 && (
+          {currentStep === 3 &&
             <Modal
               show={showSuccess}
               summary={summaryData}
               onClose={() => navigate("/")}
-            />
-          )}
-        </div>
-      )}
+            />}
+        </div>}
     </div>
   );
 }
